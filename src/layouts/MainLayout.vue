@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr fFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -11,7 +11,9 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title>Тамга</q-toolbar-title>
+        <q-toolbar-title>
+          <q-btn flat to="/">Тамга</q-btn>
+        </q-toolbar-title>
 
         <div>{{ user.name }}</div>
       </q-toolbar>
@@ -46,8 +48,8 @@ export default {
       essentialLinks: [
         {
           title: "Калькулятор",
-          // caption: "chat.quasar.dev",
-          // icon: "chat",
+          caption: "расчет доставки",
+          icon: "monetization_on",
           link: "/calc"
         }
       ]
