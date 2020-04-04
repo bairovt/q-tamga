@@ -71,7 +71,7 @@ module.exports = function (ctx) {
       env: ctx.dev ? { // so on dev we'll have
         API_URL: JSON.stringify('http://localhost:8888')
       } : { // and on build (production):
-        API_URL: JSON.stringify('http://dev.tamga80.ru')
+        API_URL: JSON.stringify('http://cargo.tamga80.ru')
       }
     },
 
