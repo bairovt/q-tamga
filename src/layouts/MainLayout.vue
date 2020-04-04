@@ -15,14 +15,35 @@
           <q-btn flat to="/">Тамга</q-btn>
         </q-toolbar-title>
 
-        <div>{{ user.name }}</div>
+        <div v-if="user">{{ user.firstName }}</div>
+        <div v-else>None</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      elevated
+      content-class="bg-grey-1"
+    >
       <q-list>
         <q-item-label header class="text-grey-8">Меню</q-item-label>
-        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+
+        <q-item clickable @click.stop="logOut()">
+          <q-item-section avatar>
+            <q-icon name="exit_to_app" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Выход</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -47,10 +68,21 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: "Калькулятор",
-          caption: "расчет доставки",
-          icon: "monetization_on",
-          link: "/calc"
+          title: "Заказы",
+          icon: "style",
+          link: "/orders"
+        },
+        {
+          title: "Товары",
+          caption: "номенклатура",
+          icon: "category",
+          link: "/products"
+        },
+        {
+          title: "Сборки",
+          caption: "отправления",
+          icon: "send",
+          link: "/bundles"
         }
       ]
     };
@@ -58,6 +90,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch("logOut");
     }
   }
 };

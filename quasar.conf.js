@@ -1,7 +1,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function(ctx) {
+module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -43,13 +43,16 @@ module.exports = function(ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Dialog', 'Notify'],
+      config: {
+        notify: {}
+      }
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
     supportIE: false,
 
-    // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
+    // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build   
     build: {
       vueRouterMode: "history", // available values: 'hash', 'history'
 
@@ -63,7 +66,13 @@ module.exports = function(ctx) {
       // extractCSS: false,
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-      extendWebpack(cfg) {}
+      extendWebpack(cfg) {},
+
+      env: ctx.dev ? { // so on dev we'll have
+        API_URL: JSON.stringify('http://localhost:8888')
+      } : { // and on build (production):
+        API_URL: JSON.stringify('http://dev.tamga80.ru')
+      }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -94,8 +103,7 @@ module.exports = function(ctx) {
         orientation: "portrait",
         background_color: "#ffffff",
         theme_color: "#027be3",
-        icons: [
-          {
+        icons: [{
             src: "statics/icons/icon-128x128.png",
             sizes: "128x128",
             type: "image/png"

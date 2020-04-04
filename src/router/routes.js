@@ -1,18 +1,47 @@
-const routes = [
-  {
+import Store from "../store";
+
+const routes = [{
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Index.vue") }]
+    children: [{
+      path: "",
+      component: () => import("pages/Index.vue")
+    }]
   },
   {
     path: "/login",
-    component: () => import("layouts/LoginLayout.vue")
-    // children: [{ path: "", component: () => import("pages/Index.vue") }]
+    component: () => import("layouts/LoginLayout.vue"),
+    // beforeEnter: (to, from, next) => {  
+    //   if (Store.state.user) {
+    //     alert(Store.state.user.name)
+    //     // Store.dispatch('logOut');
+    //   }
+    //   next();
+    // }
   },
   {
-    path: "/calc",
+    path: "/products",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Calc.vue") }]
+    children: [{
+      path: "",
+      component: () => import("pages/Products.vue")
+    }]
+  },
+  {
+    path: "/orders",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{
+      path: "",
+      component: () => import("pages/Orders.vue")
+    }]
+  },
+  {
+    path: "/bundles",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{
+      path: "",
+      component: () => import("pages/Bundles.vue")
+    }]
   }
 ];
 

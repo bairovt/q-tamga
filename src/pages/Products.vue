@@ -1,13 +1,13 @@
 <template>
   <q-page class="flex flex-center">
     <div>
-      <p>Калькулятор</p>
+      <p>Номенклатура</p>
     </div>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: "PageCalc"
+  name: "PageProducts"
 };
 </script>
