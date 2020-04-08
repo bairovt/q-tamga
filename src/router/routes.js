@@ -20,11 +20,11 @@ const routes = [{
     // }
   },
   {
-    path: "/products",
+    path: "/clients",
     component: () => import("layouts/MainLayout.vue"),
     children: [{
       path: "",
-      component: () => import("pages/Products.vue")
+      component: () => import("pages/Clients.vue")
     }]
   },
   {
@@ -42,7 +42,15 @@ const routes = [{
       path: "",
       component: () => import("pages/Bundles.vue")
     }]
-  }
+  },
+  {
+    path: "/products",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{
+      path: "",
+      component: () => import("pages/Products.vue")
+    }]
+  },
 ];
 
 // Always leave this as last one

@@ -68,21 +68,26 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
+          title: "Клиенты",
+          icon: "people_outline",
+          link: "/clients"
+        },
+        {
           title: "Заказы",
           icon: "style",
           link: "/orders"
-        },
-        {
-          title: "Товары",
-          caption: "номенклатура",
-          icon: "category",
-          link: "/products"
         },
         {
           title: "Сборки",
           caption: "отправления",
           icon: "send",
           link: "/bundles"
+        },
+        {
+          title: "Товары",
+          caption: "номенклатура",
+          icon: "category",
+          link: "/products"
         }
       ]
     };

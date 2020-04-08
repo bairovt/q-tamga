@@ -1,13 +1,13 @@
 <template>
   <q-page class="flex flex-center">
     <div>
-      <p>Товары (Номенклатура)</p>
+      <p>Клиенты</p>
     </div>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: "PageProducts"
+  name: "PageClients"
 };
 </script>
