@@ -1,5 +1,6 @@
 <template>
-  <q-layout view="hHh Lpr fFf">
+  <!-- <q-layout view="hHh Lpr fFf" style="background-color: #cccccc"> -->
+  <q-layout view="hHh Lpr fFf" class="bg-grey-4">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -20,20 +21,10 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      elevated
-      content-class="bg-grey-1"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered elevated content-class="bg-grey-3">
       <q-list>
         <q-item-label header class="text-grey-8">Меню</q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
 
         <q-item clickable @click.stop="logOut()">
           <q-item-section avatar>
@@ -68,7 +59,7 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: "Клиенты",
+          title: "Заказчики",
           icon: "people_outline",
           link: "/clients"
         },

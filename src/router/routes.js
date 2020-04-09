@@ -1,8 +1,13 @@
 import Store from "../store";
+import MainLayout from "layouts/MainLayout.vue"
+import Clients from "pages/Clients.vue"
+import Orders from "pages/Orders.vue"
+import Bundles from "pages/Bundles.vue"
+import Products from "pages/Products.vue"
 
 const routes = [{
     path: "/",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [{
       path: "",
       component: () => import("pages/Index.vue")
@@ -21,34 +26,34 @@ const routes = [{
   },
   {
     path: "/clients",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [{
       path: "",
-      component: () => import("pages/Clients.vue")
+      component: Clients
     }]
   },
   {
     path: "/orders",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [{
       path: "",
-      component: () => import("pages/Orders.vue")
+      component: Orders
     }]
   },
   {
     path: "/bundles",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [{
       path: "",
-      component: () => import("pages/Bundles.vue")
+      component: Bundles
     }]
   },
   {
     path: "/products",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [{
       path: "",
-      component: () => import("pages/Products.vue")
+      component: Products
     }]
   },
 ];
