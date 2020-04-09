@@ -28,13 +28,35 @@ const Store = new Vuex.Store({
 
   state: {
     user: null,
-    loading: false
+    loading: false,
+    error: null,
   },
 
   mutations: {
     setUser(state, payload) {
       state.user = payload;
-    }
+    },
+    setLoading(state, payload) {
+      state.loading = payload // boolean
+    },
+    setError(state, appError) {
+      const defaultErrorMsgs = {
+        500: 'Ошибка сервера',
+        404: 'Не найдено',
+        403: 'Запрещено',
+        401: 'Ошибка авторизации',
+        400: 'bad request'
+      }
+      state.error = appError
+      if (!state.error.message) {
+        Vue.set(state.error, 'message', defaultErrorMsgs[appError.status])
+      }
+      // when 401 there is no need to open error dialog due to alert is already shown
+      if (appError.status !== 401) Vue.set(state.error, 'dialog', true)
+    },
+    clearError(state) {
+      state.error = null
+    },
   },
   actions: {
     autoLogin({

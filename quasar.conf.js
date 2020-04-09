@@ -70,7 +70,7 @@ module.exports = function (ctx) {
       extendWebpack(cfg) {},
 
       env: ctx.dev ? { // so on dev we'll have
-        API_URL: JSON.stringify('http://localhost:8888')
+        API_URL: JSON.stringify('http://localhost:8880')
       } : { // and on build (production):
         API_URL: JSON.stringify('http://cargo.tamga80.ru')
       }
