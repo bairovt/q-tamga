@@ -1,6 +1,7 @@
 import Store from "../store";
 import MainLayout from "layouts/MainLayout.vue"
 import Clients from "pages/Clients.vue"
+import ClientsCreate from "pages/ClientsCreate.vue"
 import Orders from "pages/Orders.vue"
 import Bundles from "pages/Bundles.vue"
 import Products from "pages/Products.vue"
@@ -30,6 +31,9 @@ const routes = [{
     children: [{
       path: "",
       component: Clients
+    }, {
+      path: "create",
+      component: ClientsCreate
     }]
   },
   {

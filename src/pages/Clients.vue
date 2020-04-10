@@ -1,6 +1,6 @@
 <template>
   <!-- <q-page padding class="flex flex-center"> -->
-  <q-page padding>
+  <q-page padding class="q-gutter-md">
     <div>
       <p>Заказчики</p>
     </div>
@@ -13,18 +13,14 @@
     >
       <q-card-section>
         <div class="text-h6">{{client.name}}</div>
-        <div class="text-subtitle2">{{client.place}} - {{client.tel}}</div>
+        <!-- <div class="text-subtitle2">{{client.location}} - {{client.tel}}</div> -->
       </q-card-section>
 
       <q-card-section class="q-pt-none">{{client.info}}</q-card-section>
     </q-card>
 
-    <!-- <q-page-sticky position="top-right" :offset="[20, 20]">
-      <q-btn @click="getClients">Load</q-btn>
-    </q-page-sticky>-->
-
     <q-page-sticky position="bottom-right" :offset="[20, 20]">
-      <q-btn fab icon="add" color="secondary" />
+      <q-btn fab icon="add" color="secondary" to="/clients/create" />
     </q-page-sticky>
   </q-page>
 </template>
