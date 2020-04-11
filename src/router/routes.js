@@ -1,7 +1,9 @@
 import Store from "../store";
 import MainLayout from "layouts/MainLayout.vue"
-import Clients from "pages/Clients.vue"
-import ClientsCreate from "pages/ClientsCreate.vue"
+import Clients from "pages/clients/Clients.vue"
+import CreateClient from "pages/clients/CreateClient.vue"
+import UpdateClient from "pages/clients/UpdateClient.vue"
+import Client from "pages/clients/Client.vue"
 import Orders from "pages/Orders.vue"
 import Bundles from "pages/Bundles.vue"
 import Products from "pages/Products.vue"
@@ -33,7 +35,13 @@ const routes = [{
       component: Clients
     }, {
       path: "create",
-      component: ClientsCreate
+      component: CreateClient
+    }, {
+      path: ":key/update",
+      component: UpdateClient
+    }, {
+      path: ":key",
+      component: Client
     }]
   },
   {

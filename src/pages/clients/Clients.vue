@@ -1,25 +1,23 @@
 <template>
   <!-- <q-page padding class="flex flex-center"> -->
   <q-page padding class="q-gutter-md">
-    <div>
-      <p>Заказчики</p>
-    </div>
+    <q-breadcrumbs>
+      <q-breadcrumbs-el label="Заказчики" />
+    </q-breadcrumbs>
 
-    <q-card
-      v-for="(client, i) in clients"
-      :key="i + 'client'"
-      bordered
-      class="client-card bg-grey9"
-    >
-      <q-card-section>
-        <div class="text-h6">{{client.name}}</div>
-        <!-- <div class="text-subtitle2">{{client.location}} - {{client.tel}}</div> -->
-      </q-card-section>
+    <q-list>
+      <div v-for="client in clients" :key="client._key">
+        <q-item :to="`/clients/${client._key}`" class="q-pa-xs">
+          <q-item-section>
+            <q-item-label>{{client.name}}</q-item-label>
+            <q-item-label caption lines="2">{{client.info}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator spaced />
+      </div>
+    </q-list>
 
-      <q-card-section class="q-pt-none">{{client.info}}</q-card-section>
-    </q-card>
-
-    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+    <q-page-sticky position="top-right" :offset="[20, 20]">
       <q-btn fab icon="add" color="secondary" to="/clients/create" />
     </q-page-sticky>
   </q-page>

@@ -1,9 +1,9 @@
 <template>
-  <!-- <q-page padding class="flex flex-center"> -->
   <q-page padding>
-    <div>
-      <h5>Создание Заказчика</h5>
-    </div>
+    <q-breadcrumbs>
+      <q-breadcrumbs-el label="Заказчики" to="/clients" />
+      <q-breadcrumbs-el label="Создать" />
+    </q-breadcrumbs>
 
     <q-form
       @submit="onSubmit"
@@ -20,8 +20,7 @@
         :rules="[ val => val && val.length > 0 || 'обязательное поле']"
       />
 
-      <!-- <q-input type="tel" filled v-model="client.tel" label="телефон" lazy-rules :rules="[]" /> -->
-      <!-- mask="8 (###) ### - ####" -->
+      <q-input v-model="client.info" filled type="textarea" label="Информация" />
 
       <div>
         <q-btn label="Создать" type="submit" color="primary" />
@@ -38,7 +37,6 @@ export default {
     return {
       client: {
         name: null,
-        tel: null,
         info: null
       }
     };
