@@ -1,16 +1,19 @@
 <template>
   <!-- <q-page padding class="flex flex-center"> -->
-  <q-page padding class="q-gutter-md">
+  <q-page padding class="q-gutter-md" v-if="client">
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказчики" to="/clients" />
       <q-breadcrumbs-el label="Заказчик" />
     </q-breadcrumbs>
 
-    <div v-if="client">
-      <div class="text-h6">
-        {{client.name}}
+    <div class="row">
+      <div class="col text-h6">{{client.name}}</div>
+      <div class="col">
         <q-btn color="positive">+ заказ</q-btn>
       </div>
+    </div>
+
+    <div class="row">
       <p>{{client.info}}</p>
     </div>
 
