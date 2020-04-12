@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "PageClientsCreate",
+  name: "PageCreateClient",
   data() {
     return {
       client: {

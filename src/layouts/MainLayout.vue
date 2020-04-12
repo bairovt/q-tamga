@@ -76,9 +76,13 @@ export default {
         },
         {
           title: "Товары",
-          caption: "номенклатура",
           icon: "category",
           link: "/products"
+        },
+        {
+          title: "Склады",
+          icon: "store",
+          link: "/stores"
         }
       ]
     };

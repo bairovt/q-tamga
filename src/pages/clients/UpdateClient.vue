@@ -1,12 +1,12 @@
 <template>
-  <q-page padding>
-    <q-breadcrumbs class="q-mb-md">
+  <q-page padding v-if="client">
+    <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказчики" to="/clients" />
-      <q-breadcrumbs-el :label="key" />
+      <q-breadcrumbs-el :label="key" :to="`/clients/${client._key}`" />
       <q-breadcrumbs-el label="Изменить" />
     </q-breadcrumbs>
 
-    <div v-if="client">
+    <div>
       <q-form
         @submit="updateClient"
         @reset="resetUpdate"
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "PageClientsCreate",
+  name: "PageUpdateClient",
   data() {
     return {
       client: null
@@ -63,7 +63,7 @@ export default {
         .catch(console.error);
     },
     resetUpdate() {
-      this.$router.go(-1);
+      this.$router.back();
     }
   },
   created() {

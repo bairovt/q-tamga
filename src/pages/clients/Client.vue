@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col text-h6">{{client.name}}</div>
       <div class="col">
-        <q-btn color="positive">+ заказ</q-btn>
+        <q-btn color="positive" :to="`/orders/create?client_key=${client._key}`">+ заказ</q-btn>
       </div>
     </div>
 

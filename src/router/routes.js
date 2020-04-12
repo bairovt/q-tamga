@@ -4,9 +4,10 @@ import Clients from "pages/clients/Clients.vue"
 import CreateClient from "pages/clients/CreateClient.vue"
 import UpdateClient from "pages/clients/UpdateClient.vue"
 import Client from "pages/clients/Client.vue"
-import Orders from "pages/Orders.vue"
-import Bundles from "pages/Bundles.vue"
-import Products from "pages/Products.vue"
+import Orders from "pages/orders/Orders.vue"
+import CreateOrder from "pages/orders/CreateOrder.vue"
+import Bundles from "pages/bundles/Bundles.vue"
+import Products from "pages/products/Products.vue"
 
 const routes = [{
     path: "/",
@@ -50,6 +51,9 @@ const routes = [{
     children: [{
       path: "",
       component: Orders
+    }, {
+      path: "create",
+      component: CreateOrder
     }]
   },
   {
