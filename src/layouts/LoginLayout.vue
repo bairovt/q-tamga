@@ -9,19 +9,11 @@
     </q-header>
     <q-page-container>
       <q-page class="flex flex-center">
-        <div class="q-pa-md">
-          <div class="q-gutter-md" style="width: 300px">
-            <q-input outlined v-model="email" label="Email" clearable />
-            <q-input
-              outlined
-              type="password"
-              v-model="password"
-              label="Пароль"
-              clearable
-            />
-            <q-btn color="primary" @click.stop="logIn()">Войти</q-btn>
-          </div>
-        </div>
+        <q-form class="q-gutter-md" style="width: 300px" @submit="logIn()" autofocus>
+          <q-input outlined v-model="email" label="Email" />
+          <q-input outlined type="password" v-model="password" label="Пароль" />
+          <q-btn color="primary" type="submit">Войти</q-btn>
+        </q-form>
       </q-page>
     </q-page-container>
   </q-layout>
