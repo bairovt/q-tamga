@@ -21,7 +21,14 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered elevated content-class="bg-grey-3">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      elevated
+      content-class="bg-grey-3"
+      :width="250"
+    >
       <q-list>
         <q-item-label header class="text-grey-8">Меню</q-item-label>
         <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />

@@ -1,3 +1,7 @@
 .q-breadcrumbs {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
+}
+
+.q-table th {
+  font-weight: 600;
 }
