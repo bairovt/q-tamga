@@ -1,5 +1,4 @@
 <template>
-  <!-- <q-page padding class="flex flex-center"> -->
   <q-page padding>
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказчики" />

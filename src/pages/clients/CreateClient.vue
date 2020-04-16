@@ -19,12 +19,11 @@
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'обязательное поле']"
       />
-
       <q-input v-model="client.info" filled type="textarea" label="Информация" />
 
       <div>
         <q-btn label="Создать" type="submit" color="primary" />
-        <q-btn label="Отмена" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn flat label="Отмена" type="reset" color="primary" class="q-ml-lg" />
       </div>
     </q-form>
   </q-page>

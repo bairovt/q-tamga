@@ -5,3 +5,8 @@
 .q-table th {
   font-weight: 600;
 }
+
+/* q-gutter- doest not appy for q-from for some reason. Thus: */
+.q-form {
+  margin-top: 1em;
+}
