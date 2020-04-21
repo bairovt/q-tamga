@@ -6,6 +6,7 @@ import UpdateClient from "pages/clients/UpdateClient.vue"
 import Client from "pages/clients/Client.vue"
 import Orders from "pages/orders/Orders.vue"
 import CreateOrder from "pages/orders/CreateOrder.vue"
+import Order from "pages/orders/Order.vue"
 import Bundles from "pages/bundles/Bundles.vue"
 import Products from "pages/products/Products.vue"
 import Stores from "pages/stores/Stores.vue"
@@ -52,6 +53,9 @@ const routes = [{
   }, {
     path: "create",
     component: CreateOrder
+  }, {
+    path: ":key",
+    component: Order
   }]
 }, {
   path: "/bundles",
