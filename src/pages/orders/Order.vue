@@ -7,7 +7,6 @@
 
     <div class="row" v-if="order">
       <div class="col-12 col-sm-8">
-        <!-- <q-input disabled filled v-model="order.client.name" label="Заказчик" /> -->
         <div text-weigth-thing>Заказчик:</div>
         <p>
           <router-link :to="`/clients/${order.client._key}`">{{order.client.name}}</router-link>
@@ -15,41 +14,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-6 col-sm-2" style="padding: 2px;">
-        <q-input filled v-model="newProduct.tnved" label="ТНВЭД" />
-      </div>
-      <div class="col-12 col-sm-8" style="padding: 2px;">
-        <q-input filled v-model="newProduct.name" label="Наименование товара" />
-      </div>
-      <div class="col-6 col-sm-2" style="padding: 2px;">
-        <q-select
-          filled
-          v-model="newProduct.packType"
-          label="Упаковка"
-          :options="packTypes"
-          emit-value
-        />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-select filled v-model="newProduct.measure" label="Ед.изм" :options="units" />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-input filled type="number" v-model="newProduct.seats" label="Мест" />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-input filled type="number" v-model="newProduct.qty" label="Кол-во" />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-input filled type="number" v-model="newProduct.wnetto" label="нетто" />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-input filled type="number" v-model="newProduct.wbrutto" label="брутто" />
-      </div>
-      <div class="col-3 col-sm-2" style="padding: 2px;">
-        <q-input filled type="number" v-model="newProduct.cvi" label="ИТС" />
-      </div>
-    </div>
+    <ProductForm v-bind:product="newProduct"></ProductForm>
 
     <div class="row">
       <div class="col-3 col-md-2">
@@ -119,9 +84,11 @@
 
 <script>
 import { setNull } from "../../utils/setAll";
+import ProductForm from "components/products/ProductForm";
 
 export default {
   name: "PageOrder",
+  components: { ProductForm },
   data() {
     return {
       order: null,
@@ -231,12 +198,6 @@ export default {
     },
     selectedKeys() {
       return this.selected.map(item => item.key);
-    },
-    packTypes() {
-      return this.$store.state.packTypes;
-    },
-    units() {
-      return this.$store.state.units;
     }
   },
   methods: {
