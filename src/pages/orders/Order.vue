@@ -23,7 +23,13 @@
         <q-input filled v-model="newProduct.name" label="Наименование товара" />
       </div>
       <div class="col-6 col-sm-2" style="padding: 2px;">
-        <q-select filled v-model="newProduct.packType" label="Упаковка" :options="packTypes" />
+        <q-select
+          filled
+          v-model="newProduct.packType"
+          label="Упаковка"
+          :options="packTypes"
+          emit-value
+        />
       </div>
       <div class="col-3 col-sm-2" style="padding: 2px;">
         <q-select filled v-model="newProduct.measure" label="Ед.изм" :options="units" />
@@ -47,16 +53,16 @@
 
     <div class="row">
       <div class="col-3 col-md-2">
-        <q-btn color="primary" :disabled="addRowDisabled" label="Добавить" @click="addRow" />
+        <q-btn color="primary" :disabled="addRowDisabled" label="Добавить" @click="addProduct" />
       </div>
     </div>
 
     <q-table
       title="Товары"
-      :data="tableData"
+      :data="products"
       :columns="columns"
       :visible-columns="visibleСolumns"
-      row-key="key"
+      row-key="_key"
       separator="cell"
       :selected-rows-label="getSelectedString"
       selection="multiple"
@@ -68,24 +74,26 @@
         <q-space />
 
         <q-space />
-        <q-btn v-if="selected.length" class="q-ml-sm" label="Удалить" @click="removeSelectedRows" />
+        <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" />
       </template>
     </q-table>
 
-    <q-dialog v-if="row" v-model="editRowDialog" persistent>
+    <q-dialog v-if="product" v-model="updateProductDialog">
       <q-card style="width: 700px; max-width: 90vw;">
         <q-card-section>
-          <div class="text-h6">Изменить данные товара</div>
+          <div class="text-h6">Изменить товар</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <q-input dense v-model="row.name" @keyup.enter="prompt = false" />
+          <q-input dense v-model="product.name" @keyup.enter="prompt = false" />
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
+          <q-btn color="primary" label="Сохранить" v-close-popup />
+          <q-space />
           <q-btn flat label="Отмена" v-close-popup />
           <q-space />
-          <q-btn flat label="Сохранить" v-close-popup />
+          <q-btn flat label="Удалить" @click.stop="deleteProduct" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -110,6 +118,8 @@
 </template>
 
 <script>
+import { setNull } from "../../utils/setAll";
+
 export default {
   name: "PageOrder",
   data() {
@@ -126,8 +136,8 @@ export default {
         wbrutto: null,
         cvi: null
       },
-      editRowDialog: false,
-      row: null,
+      updateProductDialog: false,
+      product: null,
       selected: [],
       visibleСolumns: [
         "tnved",
@@ -142,7 +152,7 @@ export default {
         "priceNetto"
       ],
       columns: [
-        { name: "key", label: "key", field: "key" },
+        { name: "_key", label: "_key", field: "_key" },
         {
           name: "tnved",
           required: true,
@@ -211,38 +221,13 @@ export default {
           sortable: true
         }
       ],
-      tableData: [
-        {
-          key: 1,
-          tnved: "9401530000",
-          name: "МЕБЕЛЬ ДЛЯ СИДЕНИЯ ИЗ РОТАНГА (ДИВАН)",
-          packType: "44", // Мешок полиэтиленовый
-          measure: "шт",
-          seats: 1,
-          qty: 1,
-          wnetto: 31,
-          wbrutto: 32,
-          cvi: 4.5
-        },
-        {
-          key: 2,
-          tnved: "9401530000",
-          name: "МЕБЕЛЬ ДЛЯ СИДЕНИЯ ИЗ РОТАНГА (КРЕСЛО)",
-          packType: "44", // Мешок полиэтиленовый
-          measure: "шт",
-          seats: 1,
-          qty: 2,
-          wnetto: 14,
-          wbrutto: 15,
-          cvi: 4.5
-        }
-      ]
+      products: []
     };
   },
   computed: {
     addRowDisabled() {
-      if (this.tableData.length === 0) return false;
-      return this.tableData[0].tnved === "" || this.tableData[0].name === "";
+      if (this.newProduct.tnved && this.newProduct.name) return false;
+      else return true;
     },
     selectedKeys() {
       return this.selected.map(item => item.key);
@@ -260,6 +245,7 @@ export default {
         .get(`/api/orders/${this.$route.params.key}`)
         .then(resp => {
           this.order = resp.data.order;
+          this.products = resp.data.products;
         })
         .catch(console.error);
     },
@@ -276,32 +262,36 @@ export default {
     getSelectedString() {
       return this.selected.length === 0
         ? ""
-        : `${this.selected.length} из ${this.tableData.length} выбрано`;
+        : `${this.selected.length} из ${this.products.length} выбрано`;
     },
-    addRow() {
-      this.tableData.unshift({
-        key: 0,
-        tnved: "0000",
-        name: "",
-        packType: "", // Мешок полиэтиленовый
-        measure: "",
-        seats: 0,
-        qty: 0,
-        wnetto: 0,
-        wbrutto: 0,
-        cvi: 0
-      });
+    addProduct() {
+      this.newProduct.order_id = this.order._id;
+      this.$axios
+        .post(`/api/products`, { createProductDto: this.newProduct })
+        .then(resp => {
+          this.newProduct._key = resp.data.product._key;
+          this.products.unshift(Object.assign({}, this.newProduct));
+          setNull(this.newProduct);
+        })
+        .catch(console.error);
     },
-    removeSelectedRows() {
-      // todo: remove from db
-      this.tableData = this.tableData.filter(row => {
-        return !this.selectedKeys.includes(row.key);
-      });
-      this.selected = [];
+    deleteProduct() {
+      if (confirm(`Подтвердить удаление товара?`)) {
+        this.$axios
+          .delete(`/api/products/${this.product._key}`)
+          .then(resp => {
+            const idx = this.products.findIndex(
+              el => el._key === resp.data._key
+            );
+            this.products.splice(idx, 1);
+            this.updateProductDialog = false;
+          })
+          .catch(console.error);
+      }
     },
     rowClick(event, row) {
-      this.row = row;
-      this.editRowDialog = true;
+      this.product = row;
+      this.updateProductDialog = true;
     }
   },
   created() {
