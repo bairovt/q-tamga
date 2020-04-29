@@ -1,31 +1,37 @@
 <template>
   <div class="row">
     <div class="col-6 col-sm-2" style="padding: 2px;">
-      <q-input filled v-model="product.tnved" label="ТНВЭД" />
+      <q-input outlined v-model="product.tnved" label="ТНВЭД" />
     </div>
     <div class="col-12 col-sm-8" style="padding: 2px;">
-      <q-input filled v-model="product.name" label="Наименование товара" />
+      <q-input outlined v-model="product.name" label="Наименование товара" />
     </div>
     <div class="col-6 col-sm-2" style="padding: 2px;">
-      <q-select filled v-model="product.packType" label="Упаковка" :options="packTypes" emit-value />
+      <q-select
+        outlined
+        v-model="product.packType"
+        label="Упаковка"
+        :options="packTypes"
+        emit-value
+      />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-select filled v-model="product.measure" label="Ед.изм" :options="units" />
+      <q-select outlined v-model="product.measure" label="Ед.изм" :options="units" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input filled type="number" v-model="product.seats" label="Мест" />
+      <q-input outlined type="number" v-model="product.seats" label="Мест" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input filled type="number" v-model="product.qty" label="Кол-во" />
+      <q-input outlined type="number" v-model="product.qty" label="Кол-во" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input filled type="number" v-model="product.wnetto" label="нетто" />
+      <q-input outlined type="number" v-model="product.wnetto" label="нетто" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input filled type="number" v-model="product.wbrutto" label="брутто" />
+      <q-input outlined type="number" v-model="product.wbrutto" label="брутто" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input filled type="number" v-model="product.cvi" label="ИТС" />
+      <q-input outlined type="number" v-model="product.cvi" label="ИТС" />
     </div>
   </div>
 </template>

@@ -43,22 +43,24 @@
       </template>
     </q-table>
 
-    <q-dialog v-if="product" v-model="updateProductDialog">
-      <q-card style="width: 700px; max-width: 90vw;">
+    <q-dialog v-if="theProduct" v-model="productDialog" maximized>
+      <!-- <q-card style="width: 700px; max-width: 900vw;"> -->
+      <q-card style="max-width: 900px;">
         <q-card-section>
           <div class="text-h6">Изменить товар</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
-          <q-input dense v-model="product.name" @keyup.enter="prompt = false" />
+        <q-card-section class="q-pa-none">
+          <ProductForm v-bind:product="theProduct"></ProductForm>
+          <!-- <q-input dense v-model="theProduct.name" @keyup.enter="prompt = false" /> -->
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn color="primary" label="Сохранить" v-close-popup />
+          <q-btn color="primary" label="Сохранить" @click="updateProduct()" />
           <q-space />
           <q-btn flat label="Отмена" v-close-popup />
           <q-space />
-          <q-btn flat label="Удалить" @click.stop="deleteProduct" />
+          <q-btn flat label="Удалить" @click.stop="deleteProduct()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -103,8 +105,8 @@ export default {
         wbrutto: null,
         cvi: null
       },
-      updateProductDialog: false,
-      product: null,
+      productDialog: false,
+      theProduct: null,
       selected: [],
       visibleСolumns: [
         "tnved",
@@ -236,23 +238,38 @@ export default {
         })
         .catch(console.error);
     },
+    updateProduct() {
+      this.$axios
+        .put(`/api/products/${this.theProduct._key}`, {
+          updateProductDto: this.theProduct
+        })
+        .then(resp => {
+          const idx = this.products.findIndex(
+            el => el._key === this.theProduct._key
+          );
+          // this.products[idx] = this.theProduct; // is not reactive due to reactivity model of Vue
+          this.$set(this.products, idx, this.theProduct);
+          this.productDialog = false;
+        })
+        .catch(console.error);
+    },
     deleteProduct() {
       if (confirm(`Подтвердить удаление товара?`)) {
         this.$axios
-          .delete(`/api/products/${this.product._key}`)
+          .delete(`/api/products/${this.theProduct._key}`)
           .then(resp => {
             const idx = this.products.findIndex(
-              el => el._key === resp.data._key
+              el => el._key === this.theProduct._key
             );
             this.products.splice(idx, 1);
-            this.updateProductDialog = false;
+            this.productDialog = false;
           })
           .catch(console.error);
       }
     },
     rowClick(event, row) {
-      this.product = row;
-      this.updateProductDialog = true;
+      this.theProduct = { ...row };
+      this.productDialog = true;
     }
   },
   created() {
