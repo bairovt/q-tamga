@@ -14,7 +14,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "jwt-decode": "^2.2.0",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "vue-async-computed": "^3.8.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0"

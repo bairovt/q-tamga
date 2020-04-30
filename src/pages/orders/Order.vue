@@ -9,18 +9,27 @@
       <div class="col-12 col-sm-8">
         <div text-weigth-thing>Заказчик:</div>
         <p>
-          <router-link :to="`/clients/${order.client._key}`">{{order.client.name}}</router-link>
+          <router-link :to="`/clients/${order.client._key}`">{{
+            order.client.name
+          }}</router-link>
         </p>
       </div>
     </div>
 
-    <ProductForm v-bind:product="newProduct"></ProductForm>
+    <q-form ref="newProductForm" @submit="addProduct">
+      <ProductForm v-bind:product="newProduct"></ProductForm>
 
-    <div class="row">
-      <div class="col-3 col-md-2">
-        <q-btn color="primary" :disabled="addRowDisabled" label="Добавить" @click="addProduct" />
+      <div class="row">
+        <div class="col-3 col-md-2">
+          <q-btn
+            type="submit"
+            color="primary"
+            :disabled="addProductDisabled"
+            label="Добавить"
+          />
+        </div>
       </div>
-    </div>
+    </q-form>
 
     <q-table
       title="Товары"
@@ -51,13 +60,20 @@
         </q-card-section>
 
         <q-card-section class="q-pa-none">
-          <ProductForm v-bind:product="theProduct"></ProductForm>
-          <!-- <q-input dense v-model="theProduct.name" @keyup.enter="prompt = false" /> -->
+          <q-form ref="updateProductForm" @submit="updateProduct">
+            <ProductForm
+              v-bind:product="theProduct"
+              ref="productFormInDialog"
+            ></ProductForm>
+            <div class="row">
+              <q-space />
+              <q-btn color="primary" label="Сохранить" type="submit" />
+              <q-space />
+            </div>
+          </q-form>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn color="primary" label="Сохранить" @click="updateProduct()" />
-          <q-space />
           <q-btn flat label="Отмена" v-close-popup />
           <q-space />
           <q-btn flat label="Удалить" @click.stop="deleteProduct()" />
@@ -66,7 +82,7 @@
     </q-dialog>
 
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
-      <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
+      <q-fab icon="keyboard_arrow_down" direction="down" color="secondary">
         <q-fab-action
           :to="`/orders/${order._key}/update`"
           color="secondary"
@@ -85,7 +101,6 @@
 </template>
 
 <script>
-import { setNull } from "../../utils/setAll";
 import ProductForm from "components/products/ProductForm";
 
 export default {
@@ -95,16 +110,17 @@ export default {
     return {
       order: null,
       newProduct: {
-        tnved: null,
-        name: null,
-        packType: null,
-        measure: null,
-        seats: null,
-        qty: null,
-        wnetto: null,
-        wbrutto: null,
-        cvi: null
+        tnved: "",
+        name: "",
+        packType: "",
+        measure: "",
+        seats: 0,
+        qty: 0,
+        wnetto: 0,
+        wbrutto: 0,
+        cvi: 0
       },
+      newProductInitital: undefined,
       productDialog: false,
       theProduct: null,
       selected: [],
@@ -194,8 +210,13 @@ export default {
     };
   },
   computed: {
-    addRowDisabled() {
-      if (this.newProduct.tnved && this.newProduct.name) return false;
+    addProductDisabled() {
+      if (
+        this.newProduct.tnved &&
+        this.newProduct.name &&
+        this.newProduct.measure
+      )
+        return false;
       else return true;
     },
     selectedKeys() {
@@ -234,7 +255,8 @@ export default {
         .then(resp => {
           this.newProduct._key = resp.data.product._key;
           this.products.unshift(Object.assign({}, this.newProduct));
-          setNull(this.newProduct);
+          this.newProduct = { ...this.newProductInitital };
+          this.$refs.newProductForm.reset();
         })
         .catch(console.error);
     },
@@ -274,6 +296,7 @@ export default {
   },
   created() {
     this.getOrder();
+    this.newProductInitital = { ...this.newProduct };
   }
 };
 </script>
