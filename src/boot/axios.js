@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
+import {
+  Dialog
+} from 'quasar'
 
 import Store from '../store'
 
@@ -37,26 +40,33 @@ axiosInst.interceptors.response.use(
   },
   function (error) {
     // The request was made, but the server responded with a status code that falls out of the range of 2xx
-    Store.commit('setLoading', false)
+    Store.commit('setLoading', false);
+    let status = null;
+    let message = null;
     if (error.response) {
-      const status = error.response.status
+      status = error.response.status
       if (
-        status === 401 // when jwt changed etc
+        status === 401 // when jwt changed etc        
         // router.history.current.path !== '/login'
       ) {
-        Store.dispatch('logOut')
+        message = 'Unauthorized';
+        Store.dispatch('logOut');
       } else {
-        Store.commit('setError', {
-          status,
-          message: error.response.data.message
-        })
+        message = error.response.data.message; // custom api error message
       }
     } else {
-      Store.commit('setError', {
-        status: 0,
-        message: error.message || 'something wrong happened'
-      });
+      status = 0;
+      message = error.message || 'No response received';
     }
+    Store.commit('setError', {
+      status,
+      message
+    });
+    Dialog.create({
+      title: `Error ${status}`,
+      message,
+      ok: false
+    });
     return Promise.reject(error);
   });
 
