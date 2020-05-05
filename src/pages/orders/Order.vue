@@ -9,24 +9,21 @@
       <div class="col-12 col-sm-8">
         <div text-weigth-thing>Заказчик:</div>
         <p>
-          <router-link :to="`/clients/${order.client._key}`">{{
+          <router-link :to="`/clients/${order.client._key}`">
+            {{
             order.client.name
-          }}</router-link>
+            }}
+          </router-link>
         </p>
       </div>
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <ProductForm v-bind:product="newProduct"></ProductForm>
+      <ProductFormFields v-bind:product="newProduct"></ProductFormFields>
 
       <div class="row">
         <div class="col-3 col-md-2">
-          <q-btn
-            type="submit"
-            color="primary"
-            :disabled="addProductDisabled"
-            label="Добавить"
-          />
+          <q-btn type="submit" color="primary" :disabled="addProductDisabled" label="Добавить" />
         </div>
       </div>
     </q-form>
@@ -61,10 +58,7 @@
 
         <q-card-section class="q-pa-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
-            <ProductForm
-              v-bind:product="theProduct"
-              ref="productFormInDialog"
-            ></ProductForm>
+            <ProductFormFields v-bind:product="theProduct" ref="productFormInDialog"></ProductFormFields>
             <div class="row">
               <q-space />
               <q-btn color="primary" label="Сохранить" type="submit" />
@@ -101,11 +95,11 @@
 </template>
 
 <script>
-import ProductForm from "components/products/ProductForm";
+import ProductFormFields from "components/products/ProductFormFields";
 
 export default {
   name: "PageOrder",
-  components: { ProductForm },
+  components: { ProductFormFields },
   data() {
     return {
       order: null,
