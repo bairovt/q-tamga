@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import jwtDecode from "jwt-decode";
 import router from "../router";
 
+import packTypes from '../const/packTypes'
+
 // import example from './module-example'
 
 Vue.use(Vuex);
@@ -30,15 +32,7 @@ const Store = new Vuex.Store({
     user: null,
     loading: false,
     error: null,
-    packTypes: [{
-        value: '44',
-        label: 'Мешок полиэтиленовый'
-      },
-      {
-        value: '5H',
-        label: 'Мешок из полимерной ткани'
-      }
-    ],
+    packTypes,
     units: ['шт', 'литр']
   },
 
