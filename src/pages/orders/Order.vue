@@ -22,9 +22,9 @@
       <ProductFormFields v-bind:product="newProduct"></ProductFormFields>
 
       <div class="row">
-        <div class="col-3 col-md-2">
-          <q-btn type="submit" color="primary" :disabled="addProductDisabled" label="Добавить" />
-        </div>
+        <q-btn type="submit" color="primary" :disabled="addProductDisabled" label="Добавить" />
+        <q-space></q-space>
+        <q-btn label="csv" @click.stop="pastCsvDialog = true" />
       </div>
     </q-form>
 
@@ -49,6 +49,13 @@
       </template>
     </q-table>
 
+    <PastCsvDialog
+      v-if="order"
+      :dialog="pastCsvDialog"
+      :order_id="order._id"
+      @close-dialog="pastCsvDialog=false"
+    ></PastCsvDialog>
+
     <q-dialog v-if="theProduct" v-model="productDialog" maximized>
       <!-- <q-card style="width: 700px; max-width: 900vw;"> -->
       <q-card style="max-width: 900px;">
@@ -56,21 +63,20 @@
           <div class="text-h6">Изменить товар</div>
         </q-card-section>
 
-        <q-card-section class="q-pa-none">
+        <q-card-section class="q-pl-none q-pr-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
             <ProductFormFields v-bind:product="theProduct" ref="productFormInDialog"></ProductFormFields>
             <div class="row">
+              <q-btn class="row q-ml-sm" color="primary" label="Сохранить" type="submit" />
               <q-space />
-              <q-btn color="primary" label="Сохранить" type="submit" />
-              <q-space />
+              <q-btn flat label="Удалить" color="warning" @click.stop="deleteProduct()" />
             </div>
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Отмена" v-close-popup />
           <q-space />
-          <q-btn flat label="Удалить" @click.stop="deleteProduct()" />
+          <q-btn flat label="Отмена" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -96,10 +102,11 @@
 
 <script>
 import ProductFormFields from "components/products/ProductFormFields";
+import PastCsvDialog from "components/products/PastCsvDialog";
 
 export default {
   name: "PageOrder",
-  components: { ProductFormFields },
+  components: { ProductFormFields, PastCsvDialog },
   data() {
     return {
       order: null,
@@ -116,6 +123,7 @@ export default {
       },
       newProductInitital: undefined,
       productDialog: false,
+      pastCsvDialog: false,
       theProduct: null,
       selected: [],
       visibleСolumns: [
