@@ -24,7 +24,6 @@
       <div class="row">
         <q-btn type="submit" color="primary" :disabled="addProductDisabled" label="Добавить" />
         <q-space></q-space>
-        <q-btn label="csv" @click.stop="pastCsvDialog = true" />
       </div>
     </q-form>
 
@@ -89,6 +88,7 @@
           icon="edit"
           label="Изменить"
         />
+        <q-fab-action icon="add" label="CSV" color="secondary" @click.stop="pastCsvDialog = true" />
         <q-fab-action
           @click="deleteOrder()"
           color="negative"
@@ -191,7 +191,7 @@ export default {
         {
           name: "cvi",
           label: "ИТС",
-          align: "right",
+          align: "center",
           field: "cvi",
           format: val => "$" + val,
           sortable: true
@@ -199,7 +199,7 @@ export default {
         {
           name: "priceNetto",
           label: "Цена нетто",
-          align: "right",
+          align: "center",
           field: row => {
             const price = (row.wnetto * row.cvi) / row.qty;
             return isNaN(price) ? 0 : price;
