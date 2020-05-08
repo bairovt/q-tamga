@@ -10,3 +10,16 @@
 .q-form {
   margin-top: 1em;
 }
+
+/* перенос по словам в таблице*/
+.q-table td,
+.q-table th {
+  /* don't shorten cell contents */
+  white-space: normal !important;
+}
+
+.q-table td,
+.q-table th {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}

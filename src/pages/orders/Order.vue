@@ -171,11 +171,11 @@ export default {
         },
         {
           name: "seats",
-          label: "Кол-во мест",
+          label: "Кол. мест",
           align: "center",
           field: "seats"
         },
-        { name: "qty", label: "Кол-во шт", align: "center", field: "qty" },
+        { name: "qty", label: "Кол. шт", align: "center", field: "qty" },
         {
           name: "wnetto",
           label: "Вес нетто",
