@@ -10,9 +10,7 @@
         <div text-weigth-thing>Заказчик:</div>
         <p>
           <router-link :to="`/clients/${order.client._key}`">
-            {{
-            order.client.name
-            }}
+            {{ order.client.name }}
           </router-link>
         </p>
       </div>
@@ -22,7 +20,12 @@
       <ProductFormFields v-bind:product="newProduct"></ProductFormFields>
 
       <div class="row">
-        <q-btn type="submit" color="primary" :disabled="addProductDisabled" label="Добавить" />
+        <q-btn
+          type="submit"
+          color="primary"
+          :disabled="addProductDisabled"
+          label="Добавить"
+        />
         <q-space></q-space>
       </div>
     </q-form>
@@ -52,7 +55,7 @@
       v-if="order"
       :dialog="pastCsvDialog"
       :order_id="order._id"
-      @close-dialog="pastCsvDialog=false"
+      @close-dialog="pastCsvDialog = false"
     ></PastCsvDialog>
 
     <q-dialog v-if="theProduct" v-model="productDialog" maximized>
@@ -64,11 +67,24 @@
 
         <q-card-section class="q-pl-none q-pr-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
-            <ProductFormFields v-bind:product="theProduct" ref="productFormInDialog"></ProductFormFields>
+            <ProductFormFields
+              v-bind:product="theProduct"
+              ref="productFormInDialog"
+            ></ProductFormFields>
             <div class="row">
-              <q-btn class="row q-ml-sm" color="primary" label="Сохранить" type="submit" />
+              <q-btn
+                class="row q-ml-sm"
+                color="primary"
+                label="Сохранить"
+                type="submit"
+              />
               <q-space />
-              <q-btn flat label="Удалить" color="warning" @click.stop="deleteProduct()" />
+              <q-btn
+                flat
+                label="Удалить"
+                color="warning"
+                @click.stop="deleteProduct()"
+              />
             </div>
           </q-form>
         </q-card-section>
@@ -88,7 +104,12 @@
           icon="edit"
           label="Изменить"
         />
-        <q-fab-action icon="add" label="CSV" color="secondary" @click.stop="pastCsvDialog = true" />
+        <q-fab-action
+          icon="add"
+          label="CSV"
+          color="secondary"
+          @click.stop="pastCsvDialog = true"
+        />
         <q-fab-action
           @click="deleteOrder()"
           color="negative"
@@ -101,20 +122,20 @@
 </template>
 
 <script>
-import ProductFormFields from "components/products/ProductFormFields";
-import PastCsvDialog from "components/products/PastCsvDialog";
+import ProductFormFields from 'components/products/ProductFormFields';
+import PastCsvDialog from 'components/products/PastCsvDialog';
 
 export default {
-  name: "PageOrder",
+  name: 'PageOrder',
   components: { ProductFormFields, PastCsvDialog },
   data() {
     return {
       order: null,
       newProduct: {
-        tnved: "",
-        name: "",
-        packType: "",
-        measure: "",
+        tnved: '',
+        name: '',
+        packType: '',
+        measure: '',
         seats: 0,
         qty: 0,
         wnetto: 0,
@@ -127,84 +148,84 @@ export default {
       theProduct: null,
       selected: [],
       visibleСolumns: [
-        "tnved",
-        "name",
-        "packType",
-        "measure",
-        "seats",
-        "qty",
-        "wnetto",
-        "wbrutto",
-        "cvi",
-        "priceNetto"
+        'tnved',
+        'name',
+        'packType',
+        'measure',
+        'seats',
+        'qty',
+        'wnetto',
+        'wbrutto',
+        'cvi',
+        'priceNetto'
       ],
       columns: [
-        { name: "_key", label: "_key", field: "_key" },
+        { name: '_key', label: '_key', field: '_key' },
         {
-          name: "tnved",
+          name: 'tnved',
           required: true,
-          align: "left",
-          label: "ТНВЭД",
-          field: "tnved",
+          align: 'left',
+          label: 'ТНВЭД',
+          field: 'tnved',
           sortable: true
         },
         {
-          name: "name",
+          name: 'name',
           required: true,
-          label: "Наименование товара",
-          align: "left",
+          label: 'Наименование товара',
+          align: 'left',
           field: row => row.name,
           format: val => `${val}`,
           sortable: true
         },
         {
-          name: "packType",
-          label: "Тип упаковки",
-          align: "center",
-          field: "packType"
+          name: 'packType',
+          label: 'Тип упаковки',
+          align: 'center',
+          field: 'packType'
         },
         {
-          name: "measure",
-          label: "Ед. изм",
-          align: "center",
-          field: "measure"
+          name: 'measure',
+          label: 'Ед. изм',
+          align: 'center',
+          field: 'measure'
         },
         {
-          name: "seats",
-          label: "Кол. мест",
-          align: "center",
-          field: "seats"
+          name: 'seats',
+          label: 'Кол. мест',
+          align: 'center',
+          field: 'seats'
         },
-        { name: "qty", label: "Кол. шт", align: "center", field: "qty" },
+        { name: 'qty', label: 'Кол. шт', align: 'center', field: 'qty' },
         {
-          name: "wnetto",
-          label: "Вес нетто",
-          align: "center",
-          field: "wnetto"
-        },
-        {
-          name: "wbrutto",
-          label: "Вес брутто",
-          align: "center",
-          field: "wbrutto"
+          name: 'wnetto',
+          label: 'Вес нетто',
+          align: 'center',
+          field: 'wnetto'
         },
         {
-          name: "cvi",
-          label: "ИТС",
-          align: "center",
-          field: "cvi",
-          format: val => "$" + val,
+          name: 'wbrutto',
+          label: 'Вес брутто',
+          align: 'center',
+          field: 'wbrutto'
+        },
+        {
+          name: 'cvi',
+          label: 'ИТС',
+          align: 'center',
+          field: 'cvi',
+          format: val => '$' + val,
           sortable: true
         },
         {
-          name: "priceNetto",
-          label: "Цена нетто",
-          align: "center",
+          name: 'priceNetto',
+          label: 'Цена нетто',
+          align: 'center',
           field: row => {
             const price = (row.wnetto * row.cvi) / row.qty;
             return isNaN(price) ? 0 : price;
           },
-          format: val => "$" + val,
+          format: val => '$' + val,
           sortable: true
         }
       ],
@@ -240,14 +261,14 @@ export default {
         this.$axios
           .delete(`/api/orders/${this.$route.params.key}`)
           .then(() => {
-            this.$router.push("/orders");
+            this.$router.push('/orders');
           })
           .catch(console.error);
       }
     },
     getSelectedString() {
       return this.selected.length === 0
-        ? ""
+        ? ''
         : `${this.selected.length} из ${this.products.length} выбрано`;
     },
     addProduct() {
