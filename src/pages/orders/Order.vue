@@ -47,7 +47,25 @@
         <q-space />
 
         <q-space />
-        <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" />
+        <!-- <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" /> -->
+        <q-btn-dropdown v-if="selected.length" color="info" label="Действия">
+          <q-list>
+            <q-item
+              class="bg-orange-2"
+              clickable
+              v-close-popup
+              @click="deleteProducts"
+            >
+              <q-item-section avatar>
+                <q-icon color="warning" name="delete_forever" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Удалить</q-item-label>
+              </q-item-section>
+              <q-item-section side>{{ selected.length }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </template>
     </q-table>
 
@@ -62,7 +80,9 @@
       <!-- <q-card style="width: 700px; max-width: 900vw;"> -->
       <q-card style="max-width: 900px;">
         <q-card-section>
-          <div class="text-h6">Изменить товар</div>
+          <div class="text-h6">
+            Изменить товар <small>{{ theProduct._key }}</small>
+          </div>
         </q-card-section>
 
         <q-card-section class="q-pl-none q-pr-none">
@@ -100,19 +120,19 @@
       <q-fab icon="keyboard_arrow_down" direction="down" color="secondary">
         <q-fab-action
           :to="`/orders/${order._key}/update`"
-          color="secondary"
+          color="info"
           icon="edit"
           label="Изменить"
         />
         <q-fab-action
           icon="add"
           label="CSV"
-          color="secondary"
+          color="primary"
           @click.stop="pastCsvDialog = true"
         />
         <q-fab-action
           @click="deleteOrder()"
-          color="negative"
+          color="warning"
           icon="delete_forever"
           label="Удалить"
         />
@@ -243,7 +263,7 @@ export default {
       else return true;
     },
     selectedKeys() {
-      return this.selected.map(item => item.key);
+      return this.selected.map(item => item._key);
     }
   },
   methods: {
@@ -310,6 +330,20 @@ export default {
             );
             this.products.splice(idx, 1);
             this.productDialog = false;
+          })
+          .catch(console.error);
+      }
+    },
+    deleteProducts() {
+      if (+prompt('Подтвердить кол-во удаления:') === this.selected.length) {
+        this.$axios
+          .delete('/api/products', {
+            data: {
+              productKeys: this.selectedKeys
+            }
+          })
+          .then(resp => {
+            this.$router.go(0);
           })
           .catch(console.error);
       }
