@@ -21,9 +21,7 @@
         v-model="product.name"
         label="Наименование товара"
         required
-        :rules="[
-          val => (val.length && val.length >= 3) || 'минимум 3 символа'
-        ]"
+        :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']"
       />
     </div>
     <div class="col-6 col-sm-2" style="padding: 2px;">
@@ -41,9 +39,9 @@
         outlined
         v-model="product.measure"
         label="Ед.изм"
-        :options="units"
+        :options="measureUnits"
         required
-        :rules="[val => units.includes(val) || 'не должно быть пустым']"
+        :rules="[val => measureUnits.includes(val) || 'не должно быть пустым']"
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -56,7 +54,12 @@
       <q-input outlined type="number" v-model="product.wnetto" label="нетто" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input outlined type="number" v-model="product.wbrutto" label="брутто" />
+      <q-input
+        outlined
+        type="number"
+        v-model="product.wbrutto"
+        label="брутто"
+      />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
       <q-input outlined type="number" v-model="product.cvi" label="ИТС" />
@@ -66,7 +69,7 @@
 
 <script>
 export default {
-  name: "ProductFormFields",
+  name: 'ProductFormFields',
   props: {
     product: {
       type: Object,
@@ -77,8 +80,8 @@ export default {
     packTypes() {
       return this.$store.state.packTypes;
     },
-    units() {
-      return this.$store.state.units;
+    measureUnits() {
+      return this.$store.state.measureUnits;
     }
   }
 };

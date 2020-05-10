@@ -1,4 +1,7 @@
-const packTypes = [{
+const measureUnits = ['шт', 'м', 'м2', 'кг'];
+
+const packTypes = [
+  {
     value: 'CT',
     label: 'Коробка, картонная'
   },
@@ -34,6 +37,6 @@ const packTypes = [{
     value: '00',
     label: 'Добавить тип'
   }
-]
+];
 
-export default packTypes;
+export { measureUnits, packTypes };

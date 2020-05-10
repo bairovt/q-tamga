@@ -1,9 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import jwtDecode from "jwt-decode";
-import router from "../router";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import jwtDecode from 'jwt-decode';
+import router from '../router';
 
-import packTypes from '../const/packTypes'
+import { packTypes, measureUnits } from '../../src/consts';
 
 // import example from './module-example'
 
@@ -33,7 +33,7 @@ const Store = new Vuex.Store({
     loading: false,
     error: null,
     packTypes,
-    units: ['шт', 'литр']
+    measureUnits
   },
 
   mutations: {
@@ -41,7 +41,7 @@ const Store = new Vuex.Store({
       state.user = payload;
     },
     setLoading(state, payload) {
-      state.loading = payload // boolean
+      state.loading = payload; // boolean
     },
     setError(state, appError) {
       const defaultErrorMsgs = {
@@ -50,35 +50,31 @@ const Store = new Vuex.Store({
         403: 'Запрещено',
         401: 'Ошибка авторизации',
         400: 'bad request'
-      }
-      state.error = appError
+      };
+      state.error = appError;
       if (!state.error.message) {
-        Vue.set(state.error, 'message', defaultErrorMsgs[appError.status])
+        Vue.set(state.error, 'message', defaultErrorMsgs[appError.status]);
       }
       // when 401 there is no need to open error dialog due to alert is already shown
-      if (appError.status !== 401) Vue.set(state.error, 'dialog', true)
+      if (appError.status !== 401) Vue.set(state.error, 'dialog', true);
     },
     clearError(state) {
-      state.error = null
-    },
+      state.error = null;
+    }
   },
   actions: {
-    autoLogin({
-      commit
-    }) {
-      const authToken = window.localStorage.getItem("authToken");
+    autoLogin({ commit }) {
+      const authToken = window.localStorage.getItem('authToken');
       if (authToken) {
-        commit("setUser", jwtDecode(authToken)); // todo: разлогинивание конкретного юзера с сервера
+        commit('setUser', jwtDecode(authToken)); // todo: разлогинивание конкретного юзера с сервера
       } else {
-        router.push("/login");
+        router.push('/login');
       }
     },
-    logOut({
-      commit
-    }) {
-      commit("setUser", null);
-      window.localStorage.removeItem("authToken");
-      router.push("/login");
+    logOut({ commit }) {
+      commit('setUser', null);
+      window.localStorage.removeItem('authToken');
+      router.push('/login');
     }
   }
 });

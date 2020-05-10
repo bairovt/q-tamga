@@ -272,9 +272,11 @@ export default {
         : `${this.selected.length} из ${this.products.length} выбрано`;
     },
     addProduct() {
-      this.newProduct.order_id = this.order._id;
       this.$axios
-        .post(`/api/products`, { createProductDto: this.newProduct })
+        .post(`/api/products`, {
+          createProductDto: this.newProduct,
+          order_id: this.order._id
+        })
         .then(resp => {
           this.newProduct._key = resp.data.product._key;
           this.products.unshift(Object.assign({}, this.newProduct));
