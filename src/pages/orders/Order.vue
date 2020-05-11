@@ -36,7 +36,7 @@
       title="Товары"
       :data="products"
       :columns="columns"
-      :visible-columns="visibleСolumns"
+      :visible-columns="visibleColumns"
       row-key="_key"
       separator="cell"
       :selected-rows-label="getSelectedString"
@@ -51,8 +51,25 @@
 
         <q-space />
         <!-- <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" /> -->
-        <q-btn-dropdown v-show="selected.length" color="info" label="Действия">
+        <q-btn-dropdown
+          :disabled="!selected.length"
+          color="primary"
+          :label="`Действия (${selected.length})`"
+        >
           <q-list>
+            <q-item
+              class="bg-blue-grey-2"
+              clickable
+              v-close-popup
+              @click="export2CsvDialog = true"
+            >
+              <q-item-section avatar>
+                <q-icon color="info" name="archive" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>В CSV формат</q-item-label>
+              </q-item-section>
+            </q-item>
             <q-item
               class="bg-orange-2"
               clickable
@@ -65,7 +82,6 @@
               <q-item-section>
                 <q-item-label>Удалить</q-item-label>
               </q-item-section>
-              <q-item-section side>{{ selected.length }}</q-item-section>
             </q-item>
           </q-list>
         </q-btn-dropdown>
@@ -78,6 +94,14 @@
       :order_id="order._id"
       @close-dialog="pastCsvDialog = false"
     ></PastCsvDialog>
+
+    <Export2CsvDialog
+      v-if="export2CsvDialog"
+      :dialog="export2CsvDialog"
+      :products="products"
+      :visibleColumns="visibleColumns"
+      @close-dialog="export2CsvDialog = false"
+    ></Export2CsvDialog>
 
     <q-dialog v-if="theProduct" v-model="productDialog" maximized>
       <!-- <q-card style="width: 700px; max-width: 900vw;"> -->
@@ -148,10 +172,11 @@
 <script>
 import ProductFormFields from 'components/products/ProductFormFields';
 import PastCsvDialog from 'components/products/PastCsvDialog';
+import Export2CsvDialog from 'components/products/Export2CsvDialog';
 
 export default {
   name: 'PageOrder',
-  components: { ProductFormFields, PastCsvDialog },
+  components: { ProductFormFields, PastCsvDialog, Export2CsvDialog },
   data() {
     return {
       order: null,
@@ -171,13 +196,14 @@ export default {
       newProductInitital: undefined,
       productDialog: false,
       pastCsvDialog: false,
+      export2CsvDialog: false,
       theProduct: null,
       selected: [],
       pagination: {
         page: 1,
         rowsPerPage: 0 // 0 means all rows
       },
-      visibleСolumns: [
+      visibleColumns: [
         'tnved',
         'name',
         'packType',

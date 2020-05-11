@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit="pastCsv">
+        <q-form @submit="pastCsv" class="q-gutter-md">
           <div class="row">
             <q-checkbox
               v-model="fromSpec"
