@@ -8,6 +8,12 @@
       <q-card-section>
         <q-form @submit="pastCsv">
           <div class="row">
+            <q-checkbox
+              v-model="fromSpec"
+              label="2 пустые колонки после Наименования"
+            />
+          </div>
+          <div class="row">
             <div class="col-12">
               <q-input
                 type="textarea"
@@ -17,7 +23,8 @@
                 label="Вставить CVS"
                 required
                 :rules="[
-                  val => (val.length && val.length >= 30) || 'минимум 30 символов'
+                  val =>
+                    (val.length && val.length >= 30) || 'минимум 30 символов'
                 ]"
               />
             </div>
@@ -40,7 +47,7 @@
 
 <script>
 export default {
-  name: "PastCsvDialog",
+  name: 'PastCsvDialog',
   props: {
     dialog: {
       type: Boolean,
@@ -53,7 +60,8 @@ export default {
   },
   data() {
     return {
-      csv: ""
+      csv: '',
+      fromSpec: true
     };
   },
   computed: {
@@ -62,7 +70,7 @@ export default {
         return this.dialog;
       },
       set() {
-        this.$emit("close-dialog");
+        this.$emit('close-dialog');
       }
     }
   },
@@ -70,12 +78,11 @@ export default {
     pastCsv() {
       this.$axios
         .post(`/api/products/csv`, {
-          fromSpec: true,
+          fromSpec: this.fromSpec,
           order_id: this.order_id,
           csv: this.csv
         })
         .then(resp => {
-          this.thisDialog = false;
           this.$router.go(0);
         })
         .catch(console.error);

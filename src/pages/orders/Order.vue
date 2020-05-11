@@ -48,7 +48,7 @@
 
         <q-space />
         <!-- <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" /> -->
-        <q-btn-dropdown v-if="selected.length" color="info" label="Действия">
+        <q-btn-dropdown v-show="selected.length" color="info" label="Действия">
           <q-list>
             <q-item
               class="bg-orange-2"
