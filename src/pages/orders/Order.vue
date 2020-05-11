@@ -17,7 +17,8 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <ProductFormFields v-bind:product="newProduct"></ProductFormFields>
+      <ProductFormFields :product="newProduct" :comment="comment">
+      </ProductFormFields>
 
       <div class="row">
         <q-btn
@@ -27,6 +28,7 @@
           label="Добавить"
         />
         <q-space></q-space>
+        <q-checkbox v-model="comment" label="Комментарий"></q-checkbox>
       </div>
     </q-form>
 
@@ -89,8 +91,9 @@
         <q-card-section class="q-pl-none q-pr-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
             <ProductFormFields
-              v-bind:product="theProduct"
               ref="productFormInDialog"
+              :product="theProduct"
+              :comment="true"
             ></ProductFormFields>
             <div class="row">
               <q-btn
@@ -161,8 +164,10 @@ export default {
         qty: 0,
         wnetto: 0,
         wbrutto: 0,
-        cvi: 0
+        cvi: 0,
+        comment: ''
       },
+      comment: false,
       newProductInitital: undefined,
       productDialog: false,
       pastCsvDialog: false,

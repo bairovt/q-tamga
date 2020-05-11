@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-6 col-sm-2" style="padding: 2px;">
       <q-input
-        ref="tnvedInput"
         outlined
         v-model.trim="product.tnved"
         label="ТНВЭД"
@@ -16,9 +15,9 @@
     </div>
     <div class="col-12 col-sm-8" style="padding: 2px;">
       <q-input
-        ref="nameInput"
         outlined
         v-model.trim="product.name"
+        autogrow
         label="Наименование товара"
         required
         :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']"
@@ -35,7 +34,6 @@
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
       <q-select
-        ref="nameMeasure"
         outlined
         v-model="product.measure"
         label="Ед.изм"
@@ -86,6 +84,15 @@
         :rules="[notNegativeNum]"
       />
     </div>
+    <div v-if="comment" class="col-12 q-mb-md" style="padding: 2px;">
+      <q-input
+        outlined
+        v-model.trim="product.comment"
+        autogrow
+        label="Комментарий"
+        clearable
+      />
+    </div>
   </div>
 </template>
 
@@ -95,6 +102,10 @@ export default {
   props: {
     product: {
       type: Object,
+      required: true
+    },
+    comment: {
+      type: Boolean,
       required: true
     }
   },
