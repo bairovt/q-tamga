@@ -4,7 +4,7 @@
       <q-input
         ref="tnvedInput"
         outlined
-        v-model="product.tnved"
+        v-model.trim="product.tnved"
         label="ТНВЭД"
         required
         :rules="[
@@ -18,7 +18,7 @@
       <q-input
         ref="nameInput"
         outlined
-        v-model="product.name"
+        v-model.trim="product.name"
         label="Наименование товара"
         required
         :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']"
@@ -41,28 +41,50 @@
         label="Ед.изм"
         :options="measureUnits"
         required
-        :rules="[val => measureUnits.includes(val) || 'не должно быть пустым']"
+        :rules="[val => measureUnits.includes(val) || 'не пустое']"
       />
-    </div>
-    <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input outlined type="number" v-model="product.seats" label="Мест" />
-    </div>
-    <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input outlined type="number" v-model="product.qty" label="Кол-во" />
-    </div>
-    <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input outlined type="number" v-model="product.wnetto" label="нетто" />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
       <q-input
         outlined
         type="number"
-        v-model="product.wbrutto"
-        label="брутто"
+        v-model.number="product.seats"
+        label="Мест"
+        :rules="[notNegativeNum]"
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
-      <q-input outlined type="number" v-model="product.cvi" label="ИТС" />
+      <q-input
+        outlined
+        type="number"
+        v-model.number="product.qty"
+        label="Кол-во"
+        :rules="[notNegativeNum]"
+      />
+    </div>
+    <div class="col-3 col-sm-2" style="padding: 2px;">
+      <q-input
+        outlined
+        v-model.number="product.wnetto"
+        label="нетто"
+        :rules="[notNegativeNum]"
+      />
+    </div>
+    <div class="col-3 col-sm-2" style="padding: 2px;">
+      <q-input
+        outlined
+        v-model.number="product.wbrutto"
+        label="брутто"
+        :rules="[notNegativeNum]"
+      />
+    </div>
+    <div class="col-3 col-sm-2" style="padding: 2px;">
+      <q-input
+        outlined
+        v-model.number="product.cvi"
+        label="ИТС"
+        :rules="[notNegativeNum]"
+      />
     </div>
   </div>
 </template>
@@ -82,6 +104,11 @@ export default {
     },
     measureUnits() {
       return this.$store.state.measureUnits;
+    }
+  },
+  methods: {
+    notNegativeNum(val) {
+      return (!isNaN(val) && val >= 0) || 'неотриц. число';
     }
   }
 };
