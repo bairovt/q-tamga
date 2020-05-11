@@ -242,8 +242,8 @@ export default {
           label: 'Цена нетто',
           align: 'center',
           field: row => {
-            const price = (row.wnetto * row.cvi) / row.qty;
-            return isNaN(price) ? 0 : price;
+            const price = (row.wnetto * row.cvi) / row.qty || 0; // NaN is false
+            return Math.ceil(price * 100) / 100; // round to higher
           },
           format: val => '$' + val,
           sortable: true
