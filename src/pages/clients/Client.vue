@@ -7,14 +7,18 @@
     </q-breadcrumbs>
 
     <div class="row">
-      <div class="col text-h6">{{client.name}}</div>
+      <div class="col text-h6">{{ client.name }}</div>
       <div class="col">
-        <q-btn color="positive" :to="`/orders/create?client_key=${client._key}`">+ заказ</q-btn>
+        <q-btn
+          color="secondary"
+          :to="`/orders/create?client_key=${client._key}`"
+          >+ заказ</q-btn
+        >
       </div>
     </div>
 
     <div class="row">
-      <p>{{client.info}}</p>
+      <p>{{ client.info }}</p>
     </div>
 
     <q-page-sticky v-if="client" position="top-right" :offset="[18, 18]">
@@ -27,7 +31,7 @@
         />
         <q-fab-action
           @click="deleteClient()"
-          color="negative"
+          color="warning"
           icon="delete_forever"
           label="Удалить"
         />
@@ -38,7 +42,7 @@
 
 <script>
 export default {
-  name: "PageClient",
+  name: 'PageClient',
   data() {
     return {
       key: this.$route.params.key,
@@ -59,7 +63,7 @@ export default {
         this.$axios
           .delete(`/api/clients/${this.key}`)
           .then(() => {
-            this.$router.push("/clients");
+            this.$router.push('/clients');
           })
           .catch(console.error);
       }

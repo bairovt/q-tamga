@@ -53,7 +53,7 @@
         <!-- <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" /> -->
         <q-btn-dropdown
           :disabled="!selected.length"
-          color="primary"
+          color="info"
           :label="`Действия (${selected.length})`"
         >
           <q-list>
@@ -145,17 +145,17 @@
     </q-dialog>
 
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
-      <q-fab icon="keyboard_arrow_down" direction="down" color="secondary">
+      <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
         <q-fab-action
           :to="`/orders/${order._key}/update`"
-          color="info"
+          color="secondary"
           icon="edit"
           label="Изменить"
         />
         <q-fab-action
           icon="add"
           label="CSV"
-          color="primary"
+          color="secondary"
           @click.stop="pastCsvDialog = true"
         />
         <q-fab-action

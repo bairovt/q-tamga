@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="row">
-          <q-btn color="primary" label="Копировать" @click="copyToClipboard" />
+          <q-btn color="primary" label="Скопировать" @click="copyToClipboard" />
           <q-space />
         </div>
       </q-card-section>
