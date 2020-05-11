@@ -41,6 +41,7 @@
       selection="multiple"
       :selected.sync="selected"
       @row-click="rowClick"
+      :pagination.sync="pagination"
     >
       <template v-slot:top>
         <div class="q-table__title">Товары</div>
@@ -167,6 +168,10 @@ export default {
       pastCsvDialog: false,
       theProduct: null,
       selected: [],
+      pagination: {
+        page: 1,
+        rowsPerPage: 0 // 0 means all rows
+      },
       visibleСolumns: [
         'tnved',
         'name',
@@ -234,7 +239,7 @@ export default {
           label: 'ИТС',
           align: 'center',
           field: 'cvi',
-          format: val => '$' + val,
+          format: val => '$' + val.toFixed(2),
           sortable: true
         },
         {
@@ -245,7 +250,7 @@ export default {
             const price = (row.wnetto * row.cvi) / row.qty || 0; // NaN is false
             return Math.ceil(price * 100) / 100; // round to higher
           },
-          format: val => '$' + val,
+          format: val => '$' + val.toFixed(2),
           sortable: true
         }
       ],
