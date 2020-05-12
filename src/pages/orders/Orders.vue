@@ -4,26 +4,17 @@
       <q-breadcrumbs-el label="Заказы" />
     </q-breadcrumbs>
 
-    <q-list>
-      <div v-for="order in orders" :key="order._key">
-        <q-item :to="`/orders/${order._key}`" class="q-pa-xs">
-          <q-item-section>
-            <q-item-label caption lines="1">{{order.createdAt | ruDate}} №{{order.number}}</q-item-label>
-            <q-item-label>{{order.client.name}}</q-item-label>
-            <q-item-label caption lines="2">{{order.info}}</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-separator spaced />
-      </div>
-    </q-list>
+    <OrderList :orders="orders" :withClient="true"></OrderList>
   </q-page>
 </template>
 
 <script>
-import { date } from "quasar";
+import { date } from 'quasar';
+import OrderList from 'components/orders/OrderList';
 
 export default {
-  name: "PageOrders",
+  name: 'PageOrders',
+  components: { OrderList },
   data() {
     return {
       orders: []
@@ -32,16 +23,11 @@ export default {
   methods: {
     getOrders() {
       this.$axios
-        .get("/api/orders")
+        .get('/api/orders?with_client=1')
         .then(resp => {
           this.orders = resp.data.orders;
         })
         .catch(console.error);
-    }
-  },
-  filters: {
-    ruDate(val) {
-      return date.formatDate(val, "DD.MM.YY");
     }
   },
   created() {

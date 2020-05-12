@@ -1,12 +1,12 @@
 <template>
   <!-- <q-page padding class="flex flex-center"> -->
-  <q-page padding class="q-gutter-md" v-if="client">
+  <q-page padding class="q-gutter-md">
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказчики" to="/clients" />
       <q-breadcrumbs-el label="Заказчик" />
     </q-breadcrumbs>
 
-    <div class="row">
+    <div class="row" v-if="client._key">
       <div class="col text-h6">{{ client.name }}</div>
       <div class="col">
         <q-btn
@@ -20,8 +20,13 @@
     <div class="row">
       <p>{{ client.info }}</p>
     </div>
+    <div>
+      <div>Заказы:</div>
+      <br />
+      <OrderList :orders="orders"></OrderList>
+    </div>
 
-    <q-page-sticky v-if="client" position="top-right" :offset="[18, 18]">
+    <q-page-sticky v-if="client._key" position="top-right" :offset="[18, 18]">
       <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
         <q-fab-action
           :to="`/clients/${client._key}/update`"
@@ -41,12 +46,16 @@
 </template>
 
 <script>
+import OrderList from 'components/orders/OrderList';
+
 export default {
   name: 'PageClient',
+  components: { OrderList },
   data() {
     return {
       key: this.$route.params.key,
-      client: null
+      client: {},
+      orders: []
     };
   },
   methods: {
@@ -55,6 +64,14 @@ export default {
         .get(`/api/clients/${this.key}`)
         .then(resp => {
           this.client = resp.data.client;
+        })
+        .catch(console.error);
+    },
+    getOrders() {
+      this.$axios
+        .get(`/api/orders?client_key=${this.key}`)
+        .then(resp => {
+          this.orders = resp.data.orders;
         })
         .catch(console.error);
     },
@@ -71,6 +88,7 @@ export default {
   },
   created() {
     this.getClient();
+    this.getOrders();
   }
 };
 </script>
