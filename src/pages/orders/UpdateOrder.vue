@@ -1,22 +1,24 @@
 <template>
   <q-page padding>
     <q-breadcrumbs>
-      <q-breadcrumbs-el label="Заказы" to="/orders" />
-      <q-breadcrumbs-el label="Создать" />
+      <q-breadcrumbs-el to="/orders" label="Заказы" />
+      <q-breadcrumbs-el :to="`/orders/${order_key}`" :label="order_key" />
+      <q-breadcrumbs-el label="Изменить" />
     </q-breadcrumbs>
 
     <q-form
       class="q-gutter-md"
-      v-if="client"
-      @submit="createOrder"
+      v-if="order._key"
+      @submit="updateOrder"
       @reset="onReset"
       autofocus
       style="max-width: 800px"
     >
-      <q-input disabled outlined :value="client.name" label="Заказчик" />
+      <q-input disabled outlined :value="order.client.name" label="Заказчик" />
       <OrderFields :order="order"></OrderFields>
-      <div>
-        <q-btn color="primary" type="submit" label="Создать" />
+      <div class="row">
+        <q-btn color="primary" type="submit" label="Сохранить" />
+        <q-space></q-space>
         <q-btn
           flat
           color="primary"
@@ -32,40 +34,41 @@
 <script>
 import OrderFields from 'components/orders/OrderFields';
 export default {
-  name: 'PageCreateOrder',
+  name: 'PageUpdateOrder',
   components: { OrderFields },
   data() {
     return {
-      client: null,
-      order: {
-        info: null
-      }
+      order: {}
     };
   },
+  computed: {
+    order_key() {
+      return this.$route.params.key;
+    }
+  },
   methods: {
-    createOrder() {
+    updateOrder() {
       this.$axios
-        .post('/api/orders', { createOrderDto: this.order })
+        .put(`/api/orders/${this.order_key}`, { updateOrderDto: this.order })
         .then(resp => {
-          this.$router.push(`/orders/${resp.data.order_key}`);
+          this.$router.push(`/orders/${this.order_key}`);
         })
         .catch(console.error);
     },
     onReset() {
       this.$router.back();
     },
-    getClient() {
+    getOrder() {
       this.$axios
-        .get(`/api/clients/${this.$route.query.client_key}`)
+        .get(`/api/orders/${this.order_key}`)
         .then(resp => {
-          this.client = resp.data.client;
-          this.order.client_id = this.client._id;
+          this.order = resp.data.order;
         })
         .catch(console.error);
     }
   },
   created() {
-    this.getClient();
+    this.getOrder();
   }
 };
 </script>

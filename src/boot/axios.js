@@ -55,7 +55,7 @@ axiosInst.interceptors.response.use(
       status = error.response.status;
       message =
         (error.response.data && error.response.data.message) ||
-        'No response message';
+        'No message in response';
       if (
         status === 401 && // e.g. when jwt was changed
         router.history.current.path !== '/login'

@@ -13,6 +13,8 @@
             {{ order.client.name }}
           </router-link>
         </p>
+        <div text-weigth-thing>Инфо:</div>
+        <p>{{ order.info }}</p>
       </div>
     </div>
 
@@ -50,7 +52,6 @@
         <q-space />
 
         <q-space />
-        <!-- <q-btn v-if="selected.length" class="q-ml-sm" label="Действие" /> -->
         <q-btn-dropdown
           :disabled="!selected.length"
           color="info"
