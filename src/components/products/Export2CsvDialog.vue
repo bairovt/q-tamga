@@ -20,6 +20,12 @@
         <div class="row">
           <q-btn color="primary" label="Скопировать" @click="copyToClipboard" />
           <q-space />
+          <q-btn
+            label="Экспорт CSV"
+            color="primary"
+            icon="archive"
+            @click="export2Csv"
+          />
         </div>
       </q-card-section>
 
@@ -32,7 +38,7 @@
 </template>
 
 <script>
-import { copyToClipboard } from 'quasar';
+import { copyToClipboard, exportFile } from 'quasar';
 
 export default {
   name: 'Export2CsvDialog',
@@ -99,6 +105,9 @@ export default {
           });
         })
         .catch(console.error);
+    },
+    export2Csv() {
+      const status = exportFile('products.csv', this.csv, 'text/csv');
     }
   },
   watch: {

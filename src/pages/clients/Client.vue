@@ -20,9 +20,8 @@
     <div class="row">
       <p>{{ client.info }}</p>
     </div>
+    <div class="row">Заказы:</div>
     <div>
-      <div>Заказы:</div>
-      <br />
       <OrderList :orders="orders"></OrderList>
     </div>
 
