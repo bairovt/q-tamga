@@ -173,9 +173,9 @@
 </template>
 
 <script>
-import ProductFormFields from 'components/products/ProductFormFields';
-import PastCsvDialog from 'components/products/PastCsvDialog';
-import Export2CsvDialog from 'components/products/Export2CsvDialog';
+import ProductFormFields from './cmp/ProductFormFields';
+import PastCsvDialog from './cmp/PastCsvDialog';
+import Export2CsvDialog from './cmp/Export2CsvDialog';
 
 export default {
   name: 'PageOrder',

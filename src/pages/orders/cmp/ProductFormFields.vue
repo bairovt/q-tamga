@@ -26,6 +26,7 @@
     <div class="col-6 col-sm-2" style="padding: 2px;">
       <q-select
         outlined
+        multiple
         v-model="product.packType"
         label="Упаковка"
         :options="packTypes"

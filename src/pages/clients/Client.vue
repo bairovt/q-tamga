@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import OrderList from 'components/orders/OrderList';
+import OrderList from 'components/OrderList';
 
 export default {
   name: 'PageClient',
