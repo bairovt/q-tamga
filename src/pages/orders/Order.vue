@@ -7,7 +7,7 @@
 
     <div class="row" v-if="order">
       <div class="col-12 col-sm-8">
-        <div text-weigth-thing>Заказчик:</div>
+        <div text-weigth-thing>Клиент:</div>
         <p>
           <router-link :to="`/clients/${order.client._key}`">
             {{ order.client.name }}
@@ -19,8 +19,10 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <ProductFormFields :product="newProduct" :comment="comment">
-      </ProductFormFields>
+      <ProductFormFields
+        :product="newProduct"
+        :comment="comment"
+      ></ProductFormFields>
 
       <div class="row">
         <q-btn
@@ -184,7 +186,7 @@ export default {
       newProduct: {
         tnved: '',
         name: '',
-        packType: '',
+        packType: [],
         measure: '',
         seats: 0,
         qty: 0,

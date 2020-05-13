@@ -1,7 +1,7 @@
 <template>
   <q-page padding v-if="client">
     <q-breadcrumbs>
-      <q-breadcrumbs-el label="Заказчики" to="/clients" />
+      <q-breadcrumbs-el label="Клиенты" to="/clients" />
       <q-breadcrumbs-el :label="key" :to="`/clients/${client._key}`" />
       <q-breadcrumbs-el label="Изменить" />
     </q-breadcrumbs>
@@ -18,14 +18,25 @@
           v-model="client.name"
           label="название организации"
           lazy-rules
-          :rules="[ val => val && val.length > 0 || 'обязательное поле']"
+          :rules="[val => (val && val.length > 0) || 'обязательное поле']"
         />
 
-        <q-input v-model="client.info" filled type="textarea" label="Информация" />
+        <q-input
+          v-model="client.info"
+          filled
+          type="textarea"
+          label="Информация"
+        />
 
         <div>
           <q-btn label="Сохранить" type="submit" color="primary" />
-          <q-btn label="Отмена" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn
+            label="Отмена"
+            type="reset"
+            color="primary"
+            flat
+            class="q-ml-sm"
+          />
         </div>
       </q-form>
     </div>
@@ -34,7 +45,7 @@
 
 <script>
 export default {
-  name: "PageUpdateClient",
+  name: 'PageUpdateClient',
   data() {
     return {
       client: null

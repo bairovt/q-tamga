@@ -31,7 +31,11 @@
     >
       <q-list>
         <q-item-label header class="text-grey-8">Меню</q-item-label>
-        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
 
         <q-item clickable @click.stop="logOut()">
           <q-item-section avatar>
@@ -52,10 +56,10 @@
 </template>
 
 <script>
-import EssentialLink from "components/EssentialLink";
+import EssentialLink from 'components/EssentialLink';
 
 export default {
-  name: "MainLayout",
+  name: 'MainLayout',
 
   components: {
     EssentialLink
@@ -66,30 +70,30 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: "Заказчики",
-          icon: "people_outline",
-          link: "/clients"
+          title: 'Клиенты',
+          icon: 'people_outline',
+          link: '/clients'
         },
         {
-          title: "Заказы",
-          icon: "style",
-          link: "/orders"
+          title: 'Заказы',
+          icon: 'style',
+          link: '/orders'
         },
         {
-          title: "Сборки",
-          caption: "отправления",
-          icon: "send",
-          link: "/bundles"
+          title: 'Сборки',
+          caption: 'отправления',
+          icon: 'send',
+          link: '/bundles'
         },
         {
-          title: "Товары",
-          icon: "category",
-          link: "/products"
+          title: 'Товары',
+          icon: 'category',
+          link: '/products'
         },
         {
-          title: "Склады",
-          icon: "store",
-          link: "/stores"
+          title: 'Склады',
+          icon: 'store',
+          link: '/stores'
         }
       ]
     };
@@ -101,7 +105,7 @@ export default {
   },
   methods: {
     logOut() {
-      this.$store.dispatch("logOut");
+      this.$store.dispatch('logOut');
     }
   }
 };

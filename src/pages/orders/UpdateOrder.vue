@@ -14,7 +14,7 @@
       autofocus
       style="max-width: 800px"
     >
-      <q-input disabled outlined :value="order.client.name" label="Заказчик" />
+      <q-input disabled outlined :value="order.client.name" label="Клиент" />
       <OrderFields :order="order"></OrderFields>
       <div class="row">
         <q-btn color="primary" type="submit" label="Сохранить" />

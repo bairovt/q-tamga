@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-breadcrumbs>
-      <q-breadcrumbs-el label="Заказчики" to="/clients" />
+      <q-breadcrumbs-el label="Клиенты" to="/clients" />
       <q-breadcrumbs-el label="Создать" />
     </q-breadcrumbs>
 
@@ -17,13 +17,24 @@
         v-model="client.name"
         label="название организации"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'обязательное поле']"
+        :rules="[val => (val && val.length > 0) || 'обязательное поле']"
       />
-      <q-input v-model="client.info" filled type="textarea" label="Информация" />
+      <q-input
+        v-model="client.info"
+        filled
+        type="textarea"
+        label="Информация"
+      />
 
       <div>
         <q-btn label="Создать" type="submit" color="primary" />
-        <q-btn flat label="Отмена" type="reset" color="primary" class="q-ml-lg" />
+        <q-btn
+          flat
+          label="Отмена"
+          type="reset"
+          color="primary"
+          class="q-ml-lg"
+        />
       </div>
     </q-form>
   </q-page>
@@ -31,7 +42,7 @@
 
 <script>
 export default {
-  name: "PageCreateClient",
+  name: 'PageCreateClient',
   data() {
     return {
       client: {
@@ -43,7 +54,7 @@ export default {
   methods: {
     onSubmit() {
       this.$axios
-        .post("/api/clients", { createClientDto: this.client })
+        .post('/api/clients', { createClientDto: this.client })
         .then(resp => {
           this.$router.go(-1);
         })

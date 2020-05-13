@@ -2,8 +2,8 @@
   <!-- <q-page padding class="flex flex-center"> -->
   <q-page padding class="q-gutter-md">
     <q-breadcrumbs>
-      <q-breadcrumbs-el label="Заказчики" to="/clients" />
-      <q-breadcrumbs-el label="Заказчик" />
+      <q-breadcrumbs-el label="Клиенты" to="/clients" />
+      <q-breadcrumbs-el label="Клиент" />
     </q-breadcrumbs>
 
     <div class="row" v-if="client._key">
@@ -52,7 +52,7 @@ export default {
   components: { OrderList },
   data() {
     return {
-      key: this.$route.params.key,
+      client_key: this.$route.params.key,
       client: {},
       orders: []
     };
@@ -60,7 +60,7 @@ export default {
   methods: {
     getClient() {
       this.$axios
-        .get(`/api/clients/${this.key}`)
+        .get(`/api/clients/${client_key}`)
         .then(resp => {
           this.client = resp.data.client;
         })
@@ -68,7 +68,7 @@ export default {
     },
     getOrders() {
       this.$axios
-        .get(`/api/orders?client_key=${this.key}`)
+        .get(`/api/orders?client_key=${client_key}`)
         .then(resp => {
           this.orders = resp.data.orders;
         })
@@ -77,7 +77,7 @@ export default {
     deleteClient() {
       if (confirm(`Подтвердить удаление?`)) {
         this.$axios
-          .delete(`/api/clients/${this.key}`)
+          .delete(`/api/clients/${client_key}`)
           .then(() => {
             this.$router.push('/clients');
           })
