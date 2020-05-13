@@ -60,7 +60,7 @@ export default {
   methods: {
     getClient() {
       this.$axios
-        .get(`/api/clients/${client_key}`)
+        .get(`/api/clients/${this.client_key}`)
         .then(resp => {
           this.client = resp.data.client;
         })
@@ -68,7 +68,7 @@ export default {
     },
     getOrders() {
       this.$axios
-        .get(`/api/orders?client_key=${client_key}`)
+        .get(`/api/orders?client_key=${this.client_key}`)
         .then(resp => {
           this.orders = resp.data.orders;
         })
@@ -77,7 +77,7 @@ export default {
     deleteClient() {
       if (confirm(`Подтвердить удаление?`)) {
         this.$axios
-          .delete(`/api/clients/${client_key}`)
+          .delete(`/api/clients/${this.client_key}`)
           .then(() => {
             this.$router.push('/clients');
           })
