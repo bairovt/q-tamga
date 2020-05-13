@@ -19,10 +19,7 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <ProductFormFields
-        :product="newProduct"
-        :comment="comment"
-      ></ProductFormFields>
+      <ProductFields :product="newProduct" :comment="comment"></ProductFields>
 
       <div class="row">
         <q-btn
@@ -117,11 +114,11 @@
 
         <q-card-section class="q-pl-none q-pr-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
-            <ProductFormFields
+            <ProductFields
               ref="productFormInDialog"
               :product="theProduct"
               :comment="true"
-            ></ProductFormFields>
+            ></ProductFields>
             <div class="row">
               <q-btn
                 class="row q-ml-sm"
@@ -158,7 +155,7 @@
         <q-fab-action
           icon="add"
           label="CSV"
-          color="secondary"
+          color="info"
           @click.stop="pastCsvDialog = true"
         />
         <q-fab-action
@@ -173,20 +170,20 @@
 </template>
 
 <script>
-import ProductFormFields from './cmp/ProductFormFields';
+import ProductFields from './cmp/ProductFields';
 import PastCsvDialog from './cmp/PastCsvDialog';
 import Export2CsvDialog from './cmp/Export2CsvDialog';
 
 export default {
   name: 'PageOrder',
-  components: { ProductFormFields, PastCsvDialog, Export2CsvDialog },
+  components: { ProductFields, PastCsvDialog, Export2CsvDialog },
   data() {
     return {
       order: null,
       newProduct: {
         tnved: '',
         name: '',
-        packType: [],
+        packType: '',
         measure: '',
         seats: 0,
         qty: 0,
@@ -316,7 +313,12 @@ export default {
         .catch(console.error);
     },
     deleteOrder() {
-      if (confirm(`Подтвердить удаление заказа?`)) {
+      if (this.products.length) {
+        this.$q.notify({
+          message: 'Сначала удалите товары из заказа',
+          color: 'warning'
+        });
+      } else if (confirm(`Подтвердить удаление заказа?`)) {
         this.$axios
           .delete(`/api/orders/${this.$route.params.key}`)
           .then(() => {
@@ -331,9 +333,10 @@ export default {
         : `${this.selected.length} из ${this.products.length} выбрано`;
     },
     addProduct() {
+      const createProductDto = { ...this.newProduct };
       this.$axios
         .post(`/api/products`, {
-          createProductDto: this.newProduct,
+          createProductDto,
           order_id: this.order._id
         })
         .then(resp => {

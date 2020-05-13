@@ -13,7 +13,7 @@
       style="max-width: 800px"
     >
       <q-input
-        filled
+        outlined
         v-model="client.name"
         label="название организации"
         lazy-rules
@@ -21,7 +21,7 @@
       />
       <q-input
         v-model="client.info"
-        filled
+        outlined
         type="textarea"
         label="Информация"
       />

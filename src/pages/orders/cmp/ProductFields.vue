@@ -27,7 +27,7 @@
       <q-select
         outlined
         multiple
-        v-model="product.packType"
+        v-model="packType"
         label="Упаковка"
         :options="packTypes"
         emit-value
@@ -99,7 +99,7 @@
 
 <script>
 export default {
-  name: 'ProductFormFields',
+  name: 'ProductFields',
   props: {
     product: {
       type: Object,
@@ -111,6 +111,18 @@ export default {
     }
   },
   computed: {
+    packType: {
+      get() {
+        if (this.product.packType === '') {
+          return [];
+        } else {
+          return this.product.packType.split(', ');
+        }
+      },
+      set(val) {
+        this.product.packType = val.join(', ');
+      }
+    },
     packTypes() {
       return this.$store.state.packTypes;
     },
