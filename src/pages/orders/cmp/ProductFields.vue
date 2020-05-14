@@ -31,7 +31,15 @@
         label="Упаковка"
         :options="packTypes"
         emit-value
-      />
+      >
+        <template v-if="packType.length" v-slot:append>
+          <q-icon
+            name="cancel"
+            @click.stop="packType = []"
+            class="cursor-pointer"
+          />
+        </template>
+      </q-select>
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
       <q-select
