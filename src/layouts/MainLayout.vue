@@ -81,14 +81,14 @@ export default {
         },
         {
           title: 'Сборки',
-          caption: 'отправления',
+          // caption: 'отправления',
           icon: 'send',
           link: '/bundles'
         },
         {
-          title: 'Товары',
+          title: 'Номенклатура',
           icon: 'category',
-          link: '/products'
+          link: '/nomenclature'
         },
         {
           title: 'Склады',

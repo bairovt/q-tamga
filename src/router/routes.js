@@ -10,6 +10,7 @@ import UpdateOrder from 'pages/orders/UpdateOrder.vue';
 import Order from 'pages/orders/Order.vue';
 import Bundles from 'pages/bundles/Bundles.vue';
 import Products from 'pages/products/Products.vue';
+import Nomens from 'pages/nomenclature/Nomens.vue';
 import Stores from 'pages/stores/Stores.vue';
 
 const routes = [
@@ -95,6 +96,16 @@ const routes = [
       {
         path: '',
         component: Products
+      }
+    ]
+  },
+  {
+    path: '/nomenclature',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: Nomens
       }
     ]
   },
