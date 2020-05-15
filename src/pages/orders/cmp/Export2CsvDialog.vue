@@ -85,7 +85,7 @@ export default {
             if (columnVal === null || columnVal === undefined) {
               columnVal = '';
             }
-            if (col === 'wnetto' || col === 'wbrutto' || col === 'cvi') {
+            if (col === 'wnetto' || col === 'wbrutto' || col === 'its') {
               columnVal = `${columnVal}`.replace(/\./, ',');
             }
             csvText = csvText + columnVal + '\t';

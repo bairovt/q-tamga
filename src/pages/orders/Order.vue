@@ -189,7 +189,7 @@ export default {
         qty: 0,
         wnetto: 0,
         wbrutto: 0,
-        cvi: 0,
+        its: 0,
         comment: ''
       },
       comment: false,
@@ -212,7 +212,7 @@ export default {
         'qty',
         'wnetto',
         'wbrutto',
-        'cvi',
+        'its',
         'priceNetto'
       ],
       columns: [
@@ -266,10 +266,10 @@ export default {
           field: 'wbrutto'
         },
         {
-          name: 'cvi',
+          name: 'its',
           label: 'ИТС',
           align: 'center',
-          field: 'cvi',
+          field: 'its',
           format: val => '$' + val.toFixed(2),
           sortable: true
         },
@@ -278,7 +278,7 @@ export default {
           label: 'Цена нетто',
           align: 'center',
           field: row => {
-            const price = (row.wnetto * row.cvi) / row.qty || 0; // NaN is false
+            const price = (row.wnetto * row.its) / row.qty || 0; // NaN is false
             return Math.ceil(price * 100) / 100; // round to higher
           },
           format: val => '$' + val.toFixed(2),

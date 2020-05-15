@@ -88,7 +88,7 @@
     <div class="col-3 col-sm-2" style="padding: 2px;">
       <q-input
         outlined
-        v-model.number="product.cvi"
+        v-model.number="product.its"
         label="ИТС"
         :rules="[notNegativeNum]"
       />
