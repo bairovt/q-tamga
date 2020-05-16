@@ -2,6 +2,7 @@
   <q-page padding>
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Клиенты" />
+      <q-btn fab icon="add" color="secondary" to="/clients/create" />
     </q-breadcrumbs>
 
     <q-list>
@@ -15,10 +16,6 @@
         <q-separator spaced />
       </div>
     </q-list>
-
-    <q-page-sticky position="top-right" :offset="[20, 20]">
-      <q-btn fab icon="add" color="secondary" to="/clients/create" />
-    </q-page-sticky>
   </q-page>
 </template>
 
