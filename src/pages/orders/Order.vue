@@ -116,6 +116,7 @@
           <q-form ref="updateProductForm" @submit="updateProduct">
             <ProductFields
               ref="productFormInDialog"
+              :update="true"
               :product="theProduct"
               :comment="true"
             ></ProductFields>

@@ -11,6 +11,7 @@
             (val.length && val.length === 10 && val.match(/^[\d+]{10,10}$/)) ||
             'нужно 10 цифр'
         ]"
+        :disable="update"
       />
     </div>
     <div class="col-12 col-sm-8" style="padding: 2px;">
@@ -21,6 +22,7 @@
         label="Наименование товара"
         required
         :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']"
+        :disable="update"
       />
     </div>
     <div class="col-6 col-sm-2" style="padding: 2px;">
@@ -49,6 +51,7 @@
         :options="measureUnits"
         required
         :rules="[val => measureUnits.includes(val) || 'не пустое']"
+        :disable="update"
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -109,6 +112,7 @@
 export default {
   name: 'ProductFields',
   props: {
+    update: { type: Boolean, default: false },
     product: {
       type: Object,
       required: true
