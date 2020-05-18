@@ -9,9 +9,9 @@
         <q-item :to="`/nomens/${nomen._key}`" class="q-pa-xs">
           <q-item-section>
             <q-item-label caption lines="1"
-              >ТНВЭД {{ nomen.tnved }}</q-item-label
+              >тнвэд {{ nomen.tnved }}</q-item-label
             >
-            <q-item-label caption lines="3">{{ nomen.name }}</q-item-label>
+            <q-item-label lines="3">{{ nomen.name }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-separator spaced />

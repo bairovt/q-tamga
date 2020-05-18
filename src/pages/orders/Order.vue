@@ -333,11 +333,10 @@ export default {
         : `${this.selected.length} из ${this.products.length} выбрано`;
     },
     addProduct() {
-      const createProductDto = { ...this.newProduct };
+      const createProductDto = { order_id: this.order._id, ...this.newProduct };
       this.$axios
         .post(`/api/products`, {
-          createProductDto,
-          order_id: this.order._id
+          createProductDto
         })
         .then(resp => {
           this.newProduct._key = resp.data.product._key;
