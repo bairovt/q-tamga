@@ -171,9 +171,9 @@
 </template>
 
 <script>
-import ProductFields from './cmp/ProductFields';
-import PastCsvDialog from './cmp/PastCsvDialog';
-import Export2CsvDialog from './cmp/Export2CsvDialog';
+import ProductFields from './cmps/ProductFields';
+import PastCsvDialog from './cmps/PastCsvDialog';
+import Export2CsvDialog from './cmps/Export2CsvDialog';
 
 export default {
   name: 'PageOrder',

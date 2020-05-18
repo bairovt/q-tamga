@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import OrderFields from './cmp/OrderFields';
+import OrderFields from './cmps/OrderFields';
 export default {
   name: 'PageCreateOrder',
   components: { OrderFields },
