@@ -33,7 +33,18 @@ const Store = new Vuex.Store({
     loading: false,
     error: null,
     packTypes,
-    measureUnits
+    measureUnits,
+    nomen: {
+      tnved: '',
+      name: '',
+      measure: ''
+    },
+    initialNomen: {
+      tnved: '',
+      name: '',
+      measure: ''
+    },
+    searchNomenStr: ''
   },
 
   mutations: {
@@ -60,6 +71,15 @@ const Store = new Vuex.Store({
     },
     clearError(state) {
       state.error = null;
+    },
+    setNomen(state, payload) {
+      state.nomen = payload;
+    },
+    initNomen(state) {
+      state.nomen = { ...state.initialNomen };
+    },
+    setSearchNomenStr(state, payload) {
+      state.searchNomenStr = payload;
     }
   },
   actions: {

@@ -24,18 +24,14 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <NomenFields
-        :nomen="nomen"
-        :comment="comment"
-        :disableFields="['tnved', 'measure']"
-      />
+      <NomenFields :comment="comment" :disableFields="['tnved', 'measure']" />
       <ProductFields :product="newProduct" :comment="comment"></ProductFields>
 
       <div class="row">
         <q-btn
           type="submit"
           color="primary"
-          :disabled="addProductDisabled"
+          :disabled="!addProductEnabled"
           label="Добавить"
         />
         <q-space></q-space>
@@ -192,11 +188,6 @@ export default {
   data() {
     return {
       order: null,
-      nomen: {
-        tnved: '',
-        name: '',
-        measure: ''
-      },
       newProduct: {
         packType: '',
         seats: 0,
@@ -303,13 +294,16 @@ export default {
     };
   },
   computed: {
-    addProductDisabled() {
-      if (this.nomen.tnved && this.nomen.name && this.nomen.measure)
-        return false;
-      else return true;
+    addProductEnabled() {
+      if (this.nomen.tnved && this.nomen.name && this.nomen.measure) {
+        return true;
+      } else return false;
     },
     selectedKeys() {
       return this.selected.map(item => item._key);
+    },
+    nomen() {
+      return this.$store.state.nomen;
     }
   },
   methods: {
@@ -354,7 +348,7 @@ export default {
         })
         .then(resp => {
           this.newProduct._key = resp.data.product._key;
-          this.products.unshift(Object.assign({}, this.newProduct));
+          this.products.unshift(Object.assign({}, this.nomen, this.newProduct));
           this.newProduct = { ...this.newProductInitital };
           this.$refs.newProductForm.reset();
         })

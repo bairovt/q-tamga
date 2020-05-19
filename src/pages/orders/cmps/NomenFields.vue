@@ -5,19 +5,19 @@
         outlined
         label="Наименование товара"
         use-input
-        v-model="nomen.name"
+        :value="nomen.name"
         input-debounce="500"
         :options="nomens"
         option-label="name"
         option-value="_id"
         @filter="filterNomens"
-        required
         :readonly="disableFields.includes('name')"
-        clearable
-        @input="onSelect"
-        @input-value="setProductName"
-        @clear="onClear"
+        @input-value="setSearchNomenStr"
+        @input="onSelectNomen"
       >
+        <template v-if="nomen.name" v-slot:append>
+          <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />
+        </template>
       </q-select>
       <!-- :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']" -->
     </div>
@@ -70,21 +70,23 @@ export default {
         return ['create', 'update', 'select'].indexOf(value) !== -1;
       }
     },
-    disableFields: { type: Array, default: [] },
-    nomen: {
-      type: Object,
-      required: true
-    }
+    disableFields: { type: Array, default: [] }
+    // nomen: {
+    //   type: Object,
+    //   required: true
+    // }
   },
   data() {
     return {
-      nomens: [],
-      newNomenclature: '' // new nomen
+      nomens: []
     };
   },
   computed: {
     measureUnits() {
       return this.$store.state.measureUnits;
+    },
+    nomen() {
+      return this.$store.state.nomen;
     }
   },
   methods: {
@@ -104,20 +106,16 @@ export default {
         });
       }
     },
-    onSelect(val) {
-      if (val) {
-        this.nomen.tnved = val.tnved;
-        this.nomen.measure = val.measure;
-        this.newNomenclature = '';
+    onSelectNomen(selectedVal) {
+      if (selectedVal) {
+        this.$store.commit('setNomen', selectedVal);
       }
     },
     onClear(val) {
-      this.nomen.tnved = '';
-      this.nomen.measure = '';
-      this.newNomenclature = '';
+      this.$store.commit('initNomen');
     },
-    setProductName(val) {
-      this.newNomenclature = val;
+    setSearchNomenStr(inputStr) {
+      this.$store.commit('setSearchNomenStr', inputStr);
     }
   }
 };
