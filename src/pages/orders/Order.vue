@@ -7,18 +7,28 @@
 
     <div class="row" v-if="order">
       <div class="col-12 col-sm-8">
-        <div text-weigth-thing>Клиент:</div>
-        <p>
+        <div>
+          <span text-caption>Клиент:</span>
           <router-link :to="`/clients/${order.client._key}`">
             {{ order.client.name }}
           </router-link>
-        </p>
-        <div text-weigth-thing>Инфо:</div>
-        <p>{{ order.info }}</p>
+        </div>
+        <div text-body2>{{ order.info }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-8">
+        <router-link color="primary" to="#">Создать номенклатуру</router-link>
       </div>
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
+      <NomenFields
+        :nomen="nomen"
+        :comment="comment"
+        :disableFields="['tnved', 'measure']"
+      />
       <ProductFields :product="newProduct" :comment="comment"></ProductFields>
 
       <div class="row">
@@ -171,21 +181,24 @@
 </template>
 
 <script>
+import NomenFields from './cmps/NomenFields';
 import ProductFields from './cmps/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import Export2CsvDialog from './cmps/Export2CsvDialog';
 
 export default {
   name: 'PageOrder',
-  components: { ProductFields, PastCsvDialog, Export2CsvDialog },
+  components: { NomenFields, ProductFields, PastCsvDialog, Export2CsvDialog },
   data() {
     return {
       order: null,
-      newProduct: {
+      nomen: {
         tnved: '',
         name: '',
+        measure: ''
+      },
+      newProduct: {
         packType: '',
-        measure: '',
         seats: 0,
         qty: 0,
         wnetto: 0,
@@ -291,11 +304,7 @@ export default {
   },
   computed: {
     addProductDisabled() {
-      if (
-        this.newProduct.tnved &&
-        this.newProduct.name &&
-        this.newProduct.measure
-      )
+      if (this.nomen.tnved && this.nomen.name && this.nomen.measure)
         return false;
       else return true;
     },
@@ -334,7 +343,11 @@ export default {
         : `${this.selected.length} из ${this.products.length} выбрано`;
     },
     addProduct() {
-      const createProductDto = { order_id: this.order._id, ...this.newProduct };
+      const createProductDto = {
+        order_id: this.order._id,
+        nomen_id: this.nomen._id,
+        ...this.newProduct
+      };
       this.$axios
         .post(`/api/products`, {
           createProductDto
