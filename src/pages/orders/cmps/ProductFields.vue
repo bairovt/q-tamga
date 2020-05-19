@@ -76,7 +76,6 @@
 export default {
   name: 'ProductFields',
   props: {
-    update: { type: Boolean, default: false },
     product: {
       type: Object,
       required: true

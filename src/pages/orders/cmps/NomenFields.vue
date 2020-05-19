@@ -15,7 +15,10 @@
         @input-value="setSearchNomenStr"
         @input="onSelectNomen"
       >
-        <template v-if="nomen.name" v-slot:append>
+        <template
+          v-if="nomen.name && !disableFields.includes('name')"
+          v-slot:append
+        >
           <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />
         </template>
       </q-select>
@@ -70,11 +73,10 @@ export default {
         return ['create', 'update', 'select'].indexOf(value) !== -1;
       }
     },
-    disableFields: { type: Array, default: [] }
-    // nomen: {
-    //   type: Object,
-    //   required: true
-    // }
+    disableFields: { type: Array, default: () => [] },
+    product: {
+      type: Object
+    }
   },
   data() {
     return {
@@ -86,6 +88,7 @@ export default {
       return this.$store.state.measureUnits;
     },
     nomen() {
+      if (this.action === 'update') return this.product;
       return this.$store.state.nomen;
     }
   },

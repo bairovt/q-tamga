@@ -112,17 +112,21 @@
     <q-dialog v-if="theProduct" v-model="productDialog" maximized>
       <!-- <q-card style="width: 700px; max-width: 900vw;"> -->
       <q-card style="max-width: 900px;">
-        <q-card-section>
+        <q-card-section class="q-pa-sm">
           <div class="text-h6">
             Изменить товар <small>{{ theProduct._key }}</small>
           </div>
         </q-card-section>
 
-        <q-card-section class="q-pl-none q-pr-none">
+        <q-card-section class="q-pl-none q-pr-none q-mt-none q-pt-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
+            <NomenFields
+              action="update"
+              :disableFields="['name', 'tnved', 'measure']"
+              :product="theProduct"
+            ></NomenFields>
             <ProductFields
               ref="productFormInDialog"
-              :update="true"
               :product="theProduct"
               :comment="true"
             ></ProductFields>
