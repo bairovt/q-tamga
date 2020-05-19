@@ -18,7 +18,8 @@
 
     <q-list>
       <div v-for="nomen in nomens" :key="nomen._key">
-        <q-item :to="`/nomens/${nomen._key}`" class="q-pa-xs">
+        <q-item @click.stop class="q-pa-xs" clickable>
+          <!-- <q-item :to="`/nomens/${nomen._key}`" class="q-pa-xs"> -->
           <q-item-section>
             <q-item-label caption lines="1"
               >тнвэд {{ nomen.tnved }} ({{ nomen.measure }})</q-item-label
@@ -34,7 +35,6 @@
 
 <script>
 import { date } from 'quasar';
-import OrderList from 'components/OrderList';
 
 export default {
   name: 'PageNomens',
