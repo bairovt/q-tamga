@@ -19,12 +19,17 @@
 
     <div class="row">
       <div class="col-12 col-sm-8">
-        <router-link color="primary" to="#">Создать номенклатуру</router-link>
+        <q-btn dense flat color="primary" @click.stop="nomenDialog = true">
+          Создать номенклатуру
+        </q-btn>
       </div>
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <NomenFields :comment="comment" :disableFields="['tnved', 'measure']" />
+      <NomenUseFields
+        :comment="comment"
+        :disableFields="['tnved', 'measure']"
+      />
       <ProductFields :product="newProduct" :comment="comment"></ProductFields>
 
       <div class="row">
@@ -120,11 +125,11 @@
 
         <q-card-section class="q-pl-none q-pr-none q-mt-none q-pt-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
-            <NomenFields
+            <NomenUseFields
               action="update"
               :disableFields="['name', 'tnved', 'measure']"
               :product="theProduct"
-            ></NomenFields>
+            ></NomenUseFields>
             <ProductFields
               ref="productFormInDialog"
               :product="theProduct"
@@ -155,6 +160,12 @@
       </q-card>
     </q-dialog>
 
+    <NomenDialog
+      :dialog="nomenDialog"
+      action="create"
+      @close-dialog="nomenDialog = false"
+    ></NomenDialog>
+
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
       <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
         <q-fab-action
@@ -181,14 +192,21 @@
 </template>
 
 <script>
-import NomenFields from './cmps/NomenFields';
+import NomenUseFields from './cmps/NomenUseFields';
 import ProductFields from './cmps/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import Export2CsvDialog from './cmps/Export2CsvDialog';
+import NomenDialog from 'components/NomenDialog';
 
 export default {
   name: 'PageOrder',
-  components: { NomenFields, ProductFields, PastCsvDialog, Export2CsvDialog },
+  components: {
+    NomenUseFields,
+    ProductFields,
+    PastCsvDialog,
+    Export2CsvDialog,
+    NomenDialog
+  },
   data() {
     return {
       order: null,
@@ -206,6 +224,7 @@ export default {
       productDialog: false,
       pastCsvDialog: false,
       export2CsvDialog: false,
+      nomenDialog: false,
       theProduct: null,
       selected: [],
       pagination: {

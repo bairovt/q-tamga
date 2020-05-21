@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  name: 'NomenFields',
+  name: 'NomenUseFields',
   props: {
     action: {
       validator: function(value) {
