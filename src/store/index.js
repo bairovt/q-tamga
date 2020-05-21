@@ -42,10 +42,21 @@ const Store = new Vuex.Store({
       name: '',
       measure: ''
     },
-    searchNomenStr: ''
+    searchNomenStr: '',
+    orderProducts: []
   },
 
   mutations: {
+    setOrderProducts(state, payload) {
+      state.orderProducts = payload;
+    },
+    addToOrderProducts(state, payload) {
+      state.orderProducts.unshift(payload);
+    },
+    setItemOrderProducts(state, payload) {
+      //https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+      Vue.set(state.orderProducts, payload.idx, payload.product);
+    },
     setUser(state, payload) {
       state.user = payload;
     },
