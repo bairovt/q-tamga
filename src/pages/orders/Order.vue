@@ -26,10 +26,8 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <NomenUseFields
-        :comment="comment"
-        :disableFields="['tnved', 'measure']"
-      />
+      <NomenUseFields :disableFields="['tnved', 'measure']" />
+
       <ProductFields :product="newProduct" :comment="comment"></ProductFields>
 
       <div class="row">
@@ -327,7 +325,7 @@ export default {
       return this.selected.map(item => item._key);
     },
     nomen() {
-      return this.$store.state.nomen;
+      return this.$store.state.sharedNomen;
     }
   },
   methods: {
@@ -375,6 +373,7 @@ export default {
           this.products.unshift(Object.assign({}, this.nomen, this.newProduct));
           this.newProduct = { ...this.newProductInitital };
           this.$refs.newProductForm.reset();
+          this.$store.commit('initSharedNomen');
         })
         .catch(console.error);
     },

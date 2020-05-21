@@ -10,9 +10,13 @@
 
       <q-card-section>
         <q-form @submit="onSubmit" class="q-gutter-md">
-          <NomenCrudFields :nomen="nomen"></NomenCrudFields>
+          <NomenCrudFields :nomen="nomen ? nomen : newNomen"></NomenCrudFields>
           <div class="row">
-            <q-btn color="primary" label="Сохранить" type="submit" />
+            <q-btn
+              :label="action === 'create' ? 'Создать' : 'Сохранить'"
+              color="primary"
+              type="submit"
+            />
             <q-space />
           </div>
         </q-form>
@@ -27,26 +31,26 @@
 </template>
 
 <script>
-import NomenCrudFields from './NomenCrudFields';
+import NomenCrudFields from 'components/NomenCrudFields';
 
 export default {
   name: 'NomenDialog',
+  components: { NomenCrudFields },
   props: {
     dialog: {
       type: Boolean,
       required: true
     },
-    nomen: { type: Object },
+    nomen: { type: Object, required: false },
     action: {
       validator: function(value) {
         return ['create', 'update'].indexOf(value) !== -1;
       }
     }
   },
-  components: { NomenCrudFields },
   data() {
     return {
-      nomenInitial: null
+      newNomen: null
     };
   },
   computed: {
@@ -83,7 +87,9 @@ export default {
     }
   },
   mounted() {
-    this.nomenInitial = { ...this.nomen };
+    if (this.action === 'create') {
+      this.newNomen = { ...this.$store.state.initialNomen };
+    }
   }
 };
 </script>

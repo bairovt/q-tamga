@@ -1,65 +1,37 @@
 <template>
   <div class="row">
     <div class="col-6 col-sm-2" style="padding: 2px;">
-      <q-input
-        outlined
-        v-model.trim="nomen.tnved"
-        label="ТНВЭД"
-        required
-        :rules="
-          disableFields.includes('tnved')
-            ? []
-            : [
-                val =>
-                  (val.length &&
-                    val.length === 10 &&
-                    val.match(/^[\d+]{10,10}$/)) ||
-                  'нужно 10 цифр'
-              ]
-        "
-        :readonly="disableFields.includes('tnved')"
-      />
+      <q-input label="ТНВЭД" :value="nomen.tnved" outlined readonly />
     </div>
 
     <div class="col-6 col-sm-2" style="padding: 2px;">
       <q-select
-        outlined
-        v-model="nomen.measure"
         label="Ед.изм"
+        :value="nomen.measure"
         :options="measureUnits"
-        required
-        :rules="
-          disableFields.includes('measure')
-            ? []
-            : [val => measureUnits.includes(val) || 'не пустое']
-        "
-        :readonly="disableFields.includes('measure')"
+        outlined
+        readonly
       />
     </div>
 
     <div class="col-12" style="padding: 2px;">
       <q-select
-        outlined
         label="Наименование товара"
-        use-input
         :value="nomen.name"
-        input-debounce="500"
         :options="nomens"
         option-label="name"
         option-value="_id"
         @filter="filterNomens"
-        :readonly="disableFields.includes('name')"
-        @input-value="setSearchNomenStr"
         @input="onSelectNomen"
+        use-input
+        @input-value="setSearchNomenStr"
+        input-debounce="500"
+        outlined
       >
-        <template
-          v-if="nomen.name && !disableFields.includes('name')"
-          v-slot:append
-        >
+        <template v-slot:append v-if="nomen.name">
           <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />
         </template>
       </q-select>
-      <!-- :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']" -->
     </div>
   </div>
 </template>
@@ -67,17 +39,9 @@
 <script>
 export default {
   name: 'NomenUseFields',
-  props: {
-    action: {
-      validator: function(value) {
-        return ['create', 'update', 'select'].indexOf(value) !== -1;
-      }
-    },
-    disableFields: { type: Array, default: () => [] },
-    product: {
-      type: Object
-    }
-  },
+  // props: {
+  //   disableFields: { type: Array, default: () => [] }
+  // },
   data() {
     return {
       nomens: []
@@ -88,8 +52,7 @@ export default {
       return this.$store.state.measureUnits;
     },
     nomen() {
-      if (this.action === 'update') return this.product;
-      return this.$store.state.nomen;
+      return this.$store.state.sharedNomen;
     }
   },
   methods: {
@@ -111,11 +74,11 @@ export default {
     },
     onSelectNomen(selectedVal) {
       if (selectedVal) {
-        this.$store.commit('setNomen', selectedVal);
+        this.$store.commit('setSharedNomen', selectedVal);
       }
     },
     onClear(val) {
-      this.$store.commit('initNomen');
+      this.$store.commit('initSharedNomen');
     },
     setSearchNomenStr(inputStr) {
       this.$store.commit('setSearchNomenStr', inputStr);

@@ -34,10 +34,8 @@ const Store = new Vuex.Store({
     error: null,
     packTypes,
     measureUnits,
-    nomen: {
-      tnved: '',
-      name: '',
-      measure: ''
+    sharedNomen: {
+      search: ''
     },
     initialNomen: {
       tnved: '',
@@ -72,11 +70,11 @@ const Store = new Vuex.Store({
     clearError(state) {
       state.error = null;
     },
-    setNomen(state, payload) {
-      state.nomen = payload;
+    setSharedNomen(state, payload) {
+      state.sharedNomen = payload;
     },
-    initNomen(state) {
-      state.nomen = { ...state.initialNomen };
+    initSharedNomen(state) {
+      state.sharedNomen = { ...state.initialNomen };
     },
     setSearchNomenStr(state, payload) {
       state.searchNomenStr = payload;

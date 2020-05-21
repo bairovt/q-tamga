@@ -6,9 +6,10 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
   created() {
-    this.$store.dispatch("autoLogin");
+    this.$store.dispatch('autoLogin');
+    this.$store.commit('initSharedNomen');
   }
 };
 </script>
