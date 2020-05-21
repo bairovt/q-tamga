@@ -99,6 +99,12 @@
       </template>
     </q-table>
 
+    <NomenDialog
+      :dialog="nomenDialog"
+      action="create"
+      @close-dialog="nomenDialog = false"
+    ></NomenDialog>
+
     <PastCsvDialog
       v-if="order"
       :dialog="pastCsvDialog"
@@ -125,11 +131,10 @@
 
         <q-card-section class="q-pl-none q-pr-none q-mt-none q-pt-none">
           <q-form ref="updateProductForm" @submit="updateProduct">
-            <NomenUseFields
-              action="update"
+            <NomenCrudFields
+              :nomen="theProduct"
               :disableFields="['name', 'tnved', 'measure']"
-              :product="theProduct"
-            ></NomenUseFields>
+            ></NomenCrudFields>
             <ProductFields
               ref="productFormInDialog"
               :product="theProduct"
@@ -160,12 +165,6 @@
       </q-card>
     </q-dialog>
 
-    <NomenDialog
-      :dialog="nomenDialog"
-      action="create"
-      @close-dialog="nomenDialog = false"
-    ></NomenDialog>
-
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
       <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
         <q-fab-action
@@ -193,6 +192,7 @@
 
 <script>
 import NomenUseFields from './cmps/NomenUseFields';
+import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from './cmps/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import Export2CsvDialog from './cmps/Export2CsvDialog';
@@ -202,6 +202,7 @@ export default {
   name: 'PageOrder',
   components: {
     NomenUseFields,
+    NomenCrudFields,
     ProductFields,
     PastCsvDialog,
     Export2CsvDialog,

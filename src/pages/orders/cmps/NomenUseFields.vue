@@ -1,30 +1,5 @@
 <template>
   <div class="row">
-    <div class="col-12 col-sm-8" style="padding: 2px;">
-      <q-select
-        outlined
-        label="Наименование товара"
-        use-input
-        :value="nomen.name"
-        input-debounce="500"
-        :options="nomens"
-        option-label="name"
-        option-value="_id"
-        @filter="filterNomens"
-        :readonly="disableFields.includes('name')"
-        @input-value="setSearchNomenStr"
-        @input="onSelectNomen"
-      >
-        <template
-          v-if="nomen.name && !disableFields.includes('name')"
-          v-slot:append
-        >
-          <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />
-        </template>
-      </q-select>
-      <!-- :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']" -->
-    </div>
-
     <div class="col-6 col-sm-2" style="padding: 2px;">
       <q-input
         outlined
@@ -60,6 +35,31 @@
         "
         :readonly="disableFields.includes('measure')"
       />
+    </div>
+
+    <div class="col-12" style="padding: 2px;">
+      <q-select
+        outlined
+        label="Наименование товара"
+        use-input
+        :value="nomen.name"
+        input-debounce="500"
+        :options="nomens"
+        option-label="name"
+        option-value="_id"
+        @filter="filterNomens"
+        :readonly="disableFields.includes('name')"
+        @input-value="setSearchNomenStr"
+        @input="onSelectNomen"
+      >
+        <template
+          v-if="nomen.name && !disableFields.includes('name')"
+          v-slot:append
+        >
+          <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />
+        </template>
+      </q-select>
+      <!-- :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']" -->
     </div>
   </div>
 </template>
