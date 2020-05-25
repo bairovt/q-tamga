@@ -1,9 +1,13 @@
 <template>
-  <q-dialog :value="dialog" @input="$emit('close-dialog')" maximized>
+  <q-dialog
+    :value="dialog"
+    @input="$root.$emit('close-create-nomen-dialog')"
+    maximized
+  >
     <q-card style="max-width: 900px;">
       <q-card-section>
         <div class="text-h6">
-          Создать
+          Создать номенклатуру
         </div>
       </q-card-section>
 
@@ -62,7 +66,7 @@ export default {
         })
         .then(resp => {
           this.$store.commit('setSharedNomen', resp.data.nomen);
-          this.$emit('close-dialog');
+          this.$root.$emit('close-create-nomen-dialog');
         })
         .catch(console.error);
     }

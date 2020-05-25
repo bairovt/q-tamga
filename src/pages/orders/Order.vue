@@ -23,7 +23,7 @@
           dense
           flat
           color="primary"
-          @click.stop="craeteNomenDialog = true"
+          @click.stop="$root.$emit('open-create-nomen-dialog')"
         >
           Создать номенклатуру
         </q-btn>
@@ -46,11 +46,6 @@
     </q-form>
 
     <ProductsTable></ProductsTable>
-
-    <CreateNomenDialog
-      :dialog="craeteNomenDialog"
-      @close-dialog="craeteNomenDialog = false"
-    ></CreateNomenDialog>
 
     <PastCsvDialog
       v-if="order"
@@ -89,7 +84,6 @@ import NomenUseFields from './cmps/NomenUseFields';
 import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
-import CreateNomenDialog from 'components/CreateNomenDialog';
 import ProductsTable from 'components/ProductsTable';
 
 export default {
@@ -99,7 +93,6 @@ export default {
     NomenCrudFields,
     ProductFields,
     PastCsvDialog,
-    CreateNomenDialog,
     ProductsTable
   },
   data() {
@@ -116,8 +109,7 @@ export default {
       },
       comment: false,
       newProductInitital: undefined,
-      pastCsvDialog: false,
-      craeteNomenDialog: false
+      pastCsvDialog: false
     };
   },
   computed: {

@@ -2,6 +2,11 @@
   <q-page padding>
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Номенклатура" />
+      <q-btn
+        icon="add"
+        color="secondary"
+        @click.stop="$root.$emit('open-create-nomen-dialog')"
+      />
     </q-breadcrumbs>
     <div class="row q-mb-lg">
       <div class="col">
@@ -55,6 +60,7 @@ export default {
         .catch(console.error);
     },
     doSearch() {
+      this.$store.commit('setNomenSearch', this.search);
       this.getNomens();
     }
   },

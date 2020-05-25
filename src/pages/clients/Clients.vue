@@ -2,7 +2,7 @@
   <q-page padding>
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Клиенты" />
-      <q-btn fab icon="add" color="secondary" to="/clients/create" />
+      <q-btn icon="add" color="secondary" to="/clients/create" />
     </q-breadcrumbs>
 
     <q-list>
