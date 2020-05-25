@@ -24,7 +24,7 @@
         @filter="filterNomens"
         @input="onSelectNomen"
         use-input
-        @input-value="setSearchNomenStr"
+        @input-value="setNomenSearch"
         input-debounce="500"
         outlined
       >
@@ -80,8 +80,8 @@ export default {
     onClear(val) {
       this.$store.commit('initSharedNomen');
     },
-    setSearchNomenStr(inputStr) {
-      this.$store.commit('setSearchNomenStr', inputStr);
+    setNomenSearch(search) {
+      if (search) this.$store.commit('setNomenSearch', search);
     }
   }
 };

@@ -43,19 +43,11 @@
         label="Наименование товара"
         v-model="nomen.name"
         :readonly="disableFields.includes('name')"
-        :rules="[val => (val.length && val.length >= 3) || 'минимум 3 символа']"
-      >
-        <template
-          v-slot:append
-          v-if="nomen.name && !disableFields.includes('name')"
-        >
-          <q-icon
-            name="cancel"
-            @click.stop="onNameClear"
-            class="cursor-pointer"
-          />
-        </template>
-      </q-input>
+        :rules="[
+          val => (val && val.length && val.length >= 3) || 'минимум 3 символа'
+        ]"
+        clearable
+      />
     </div>
   </div>
 </template>
@@ -70,11 +62,6 @@ export default {
   computed: {
     measureUnits() {
       return this.$store.state.measureUnits;
-    }
-  },
-  methods: {
-    onClear(val) {
-      // this.$store.commit('initNomen');
     }
   }
 };

@@ -19,7 +19,12 @@
 
     <div class="row">
       <div class="col-12 col-sm-8">
-        <q-btn dense flat color="primary" @click.stop="nomenDialog = true">
+        <q-btn
+          dense
+          flat
+          color="primary"
+          @click.stop="craeteNomenDialog = true"
+        >
           Создать номенклатуру
         </q-btn>
       </div>
@@ -42,11 +47,10 @@
 
     <ProductsTable></ProductsTable>
 
-    <NomenDialog
-      :dialog="nomenDialog"
-      action="create"
-      @close-dialog="nomenDialog = false"
-    ></NomenDialog>
+    <CreateNomenDialog
+      :dialog="craeteNomenDialog"
+      @close-dialog="craeteNomenDialog = false"
+    ></CreateNomenDialog>
 
     <PastCsvDialog
       v-if="order"
@@ -85,7 +89,7 @@ import NomenUseFields from './cmps/NomenUseFields';
 import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
-import NomenDialog from 'components/NomenDialog';
+import CreateNomenDialog from 'components/CreateNomenDialog';
 import ProductsTable from 'components/ProductsTable';
 
 export default {
@@ -95,7 +99,7 @@ export default {
     NomenCrudFields,
     ProductFields,
     PastCsvDialog,
-    NomenDialog,
+    CreateNomenDialog,
     ProductsTable
   },
   data() {
@@ -113,7 +117,7 @@ export default {
       comment: false,
       newProductInitital: undefined,
       pastCsvDialog: false,
-      nomenDialog: false
+      craeteNomenDialog: false
     };
   },
   computed: {

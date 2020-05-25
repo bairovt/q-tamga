@@ -34,15 +34,13 @@ const Store = new Vuex.Store({
     error: null,
     packTypes,
     measureUnits,
-    sharedNomen: {
-      search: ''
-    },
+    sharedNomen: {},
     initialNomen: {
       tnved: '',
       name: '',
       measure: ''
     },
-    searchNomenStr: '',
+    nomenSearch: '',
     orderProducts: []
   },
 
@@ -56,6 +54,9 @@ const Store = new Vuex.Store({
     setItemOrderProducts(state, payload) {
       //https://vuejs.org/v2/guide/reactivity.html#For-Arrays
       Vue.set(state.orderProducts, payload.idx, payload.product);
+    },
+    delItemOrderProducts(state, idx) {
+      Vue.delete(state.orderProducts, idx);
     },
     setUser(state, payload) {
       state.user = payload;
@@ -87,8 +88,8 @@ const Store = new Vuex.Store({
     initSharedNomen(state) {
       state.sharedNomen = { ...state.initialNomen };
     },
-    setSearchNomenStr(state, payload) {
-      state.searchNomenStr = payload;
+    setNomenSearch(state, payload) {
+      state.nomenSearch = payload;
     }
   },
   actions: {

@@ -114,7 +114,6 @@
 import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from 'components/ProductFields';
 import Export2CsvDialog from 'components/Export2CsvDialog';
-import NomenDialog from 'components/NomenDialog';
 
 export default {
   name: 'ProductsTable',
@@ -256,7 +255,8 @@ export default {
             const idx = this.products.findIndex(
               el => el._key === this.product._key
             );
-            this.products.splice(idx, 1);
+            // this.products.splice(idx, 1);
+            this.$store.commit('delItemOrderProducts', idx);
             this.productDialog = false;
           })
           .catch(console.error);
