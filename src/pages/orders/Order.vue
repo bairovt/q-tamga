@@ -3,6 +3,7 @@
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказы" to="/orders" />
       <q-breadcrumbs-el :label="$route.params.key" />
+      <span v-if="order">{{ order.status }}</span>
     </q-breadcrumbs>
 
     <div class="row" v-if="order">
@@ -52,10 +53,23 @@
       :dialog="pastCsvDialog"
       :order_id="order._id"
       @close-dialog="pastCsvDialog = false"
-    ></PastCsvDialog>
+    />
+
+    <TakeOnStoreDialog
+      v-if="order"
+      :dialog="takeOnStoreDialog"
+      :order="order"
+      @close-dialog="takeOnStoreDialog = false"
+    />
 
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
       <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
+        <q-fab-action
+          @click="takeOnStoreDialog = true"
+          color="secondary"
+          label="Принять на"
+        />
+        <!-- icon="edit" -->
         <q-fab-action
           :to="`/orders/${order._key}/update`"
           color="secondary"
@@ -85,6 +99,7 @@ import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import ProductsTable from 'components/ProductsTable';
+import TakeOnStoreDialog from 'components/TakeOnStoreDialog';
 
 export default {
   name: 'PageOrder',
@@ -93,7 +108,8 @@ export default {
     NomenCrudFields,
     ProductFields,
     PastCsvDialog,
-    ProductsTable
+    ProductsTable,
+    TakeOnStoreDialog
   },
   data() {
     return {
@@ -109,7 +125,8 @@ export default {
       },
       comment: false,
       newProductInitital: undefined,
-      pastCsvDialog: false
+      pastCsvDialog: false,
+      takeOnStoreDialog: false
     };
   },
   computed: {

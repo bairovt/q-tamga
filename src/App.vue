@@ -23,11 +23,19 @@ export default {
     },
     closeCreateNomenDialog() {
       this.createNomenDialog = false;
+    },
+    getStores() {
+      this.$axios
+        .get('/api/stores')
+        .then(resp => {
+          this.$store.commit('setStores', resp.data.stores);
+        })
+        .catch(console.error);
     }
   },
   created() {
     this.$store.dispatch('autoLogin');
-    this.$store.commit('initSharedNomen');
+    this.getStores();
 
     this.$root.$on('open-create-nomen-dialog', this.openCreateNomenDialog);
     this.$root.$on('close-create-nomen-dialog', this.closeCreateNomenDialog);

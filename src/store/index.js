@@ -41,7 +41,8 @@ const Store = new Vuex.Store({
       measure: ''
     },
     nomenSearch: '',
-    orderProducts: []
+    orderProducts: [],
+    stores: []
   },
 
   mutations: {
@@ -90,6 +91,9 @@ const Store = new Vuex.Store({
     },
     setNomenSearch(state, payload) {
       state.nomenSearch = payload;
+    },
+    setStores(state, payload) {
+      state.stores = payload;
     }
   },
   actions: {
