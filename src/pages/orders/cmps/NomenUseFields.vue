@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-6 col-sm-2" style="padding: 2px;">
-      <q-input label="ТНВЭД" :value="nomen.tnved" outlined readonly />
+      <q-input label="ТНВЭД" :value="nomen.tnved" outlined readonly dense />
     </div>
 
     <div class="col-6 col-sm-2" style="padding: 2px;">
@@ -11,6 +11,7 @@
         :options="measureUnits"
         outlined
         readonly
+        dense
       />
     </div>
 
@@ -27,6 +28,8 @@
         @input-value="setNomenSearch"
         input-debounce="500"
         outlined
+        :rules="[val => !!val || 'Обязательное поле']"
+        dense
       >
         <template v-slot:append v-if="nomen.name">
           <q-icon name="cancel" @click.stop="onClear" class="cursor-pointer" />

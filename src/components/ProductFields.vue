@@ -8,6 +8,7 @@
         label="Упаковка"
         :options="packTypes"
         emit-value
+        dense
       >
         <template v-if="packType.length" v-slot:append>
           <q-icon
@@ -25,6 +26,7 @@
         v-model.number="product.seats"
         label="Мест"
         :rules="[notNegativeNum]"
+        dense
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -34,6 +36,7 @@
         v-model.number="product.qty"
         label="Кол-во"
         :rules="[notNegativeNum]"
+        dense
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -42,6 +45,7 @@
         v-model.number="product.wnetto"
         label="нетто"
         :rules="[notNegativeNum]"
+        dense
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -50,6 +54,7 @@
         v-model.number="product.wbrutto"
         label="брутто"
         :rules="[notNegativeNum]"
+        dense
       />
     </div>
     <div class="col-3 col-sm-2" style="padding: 2px;">
@@ -58,6 +63,7 @@
         v-model.number="product.its"
         label="ИТС"
         :rules="[notNegativeNum]"
+        dense
       />
     </div>
     <div v-if="comment" class="col-12 q-mb-md" style="padding: 2px;">
@@ -67,6 +73,7 @@
         autogrow
         label="Комментарий"
         clearable
+        dense
       />
     </div>
   </div>

@@ -18,6 +18,7 @@
               ]
         "
         :readonly="disableFields.includes('tnved')"
+        dense
       />
     </div>
 
@@ -34,6 +35,7 @@
             : [val => measureUnits.includes(val) || 'не пустое']
         "
         :readonly="disableFields.includes('measure')"
+        dense
       />
     </div>
 
@@ -47,6 +49,7 @@
           val => (val && val.length && val.length >= 3) || 'минимум 3 символа'
         ]"
         clearable
+        dense
       />
     </div>
   </div>
