@@ -24,18 +24,18 @@ export default {
     closeCreateNomenDialog() {
       this.createNomenDialog = false;
     },
-    getStores() {
+    getRepos() {
       this.$axios
-        .get('/api/stores')
+        .get('/api/repos')
         .then(resp => {
-          this.$store.commit('setStores', resp.data.stores);
+          this.$store.commit('setRepos', resp.data.repos);
         })
         .catch(console.error);
     }
   },
   created() {
     this.$store.dispatch('autoLogin');
-    this.getStores();
+    this.getRepos();
 
     this.$root.$on('open-create-nomen-dialog', this.openCreateNomenDialog);
     this.$root.$on('close-create-nomen-dialog', this.closeCreateNomenDialog);

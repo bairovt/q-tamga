@@ -11,8 +11,8 @@
         <q-form @submit="onSubmit" class="q-gutter-md">
           <q-select
             label="Склад"
-            v-model="store"
-            :options="stores"
+            v-model="repo"
+            :options="repos"
             option-label="name"
             :rules="[val => !!val || 'не должно быть пустым']"
           />
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'TakeOnStoreDialog',
+  name: 'TakeOnRepoDialog',
   props: {
     dialog: {
       type: Boolean,
@@ -43,20 +43,20 @@ export default {
     order: { type: Object, required: true }
   },
   data() {
-    return { store: null };
+    return { repo: null };
   },
   computed: {
-    stores() {
-      return this.$store.state.stores;
+    repos() {
+      return this.$store.state.repos;
     }
   },
   methods: {
     onSubmit() {
       this.$axios
-        .post(`/api/shifts/take-on-store`, {
+        .post(`/api/shifts/take-on-repo`, {
           client_id: this.order.client_id,
           order_id: this.order._id,
-          store_id: this.store._id
+          repo_id: this.repo._id
         })
         .then(resp => {
           this.order.status = resp.data.status;

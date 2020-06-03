@@ -93,7 +93,7 @@ export default {
         {
           title: 'Склады',
           icon: 'store',
-          link: '/stores'
+          link: '/repos'
         }
       ]
     };

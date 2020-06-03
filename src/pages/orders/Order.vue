@@ -55,17 +55,17 @@
       @close-dialog="pastCsvDialog = false"
     />
 
-    <TakeOnStoreDialog
+    <TakeOnRepoDialog
       v-if="order"
-      :dialog="takeOnStoreDialog"
+      :dialog="takeOnRepoDialog"
       :order="order"
-      @close-dialog="takeOnStoreDialog = false"
+      @close-dialog="takeOnRepoDialog = false"
     />
 
     <q-page-sticky v-if="order" position="top-right" :offset="[18, 18]">
       <q-fab icon="keyboard_arrow_down" direction="down" color="primary">
         <q-fab-action
-          @click="takeOnStoreDialog = true"
+          @click="takeOnRepoDialog = true"
           color="secondary"
           label="Принять на"
         />
@@ -99,7 +99,7 @@ import NomenCrudFields from 'components/NomenCrudFields';
 import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import ProductsTable from 'components/ProductsTable';
-import TakeOnStoreDialog from 'components/TakeOnStoreDialog';
+import TakeOnRepoDialog from 'components/TakeOnRepoDialog';
 
 export default {
   name: 'PageOrder',
@@ -109,7 +109,7 @@ export default {
     ProductFields,
     PastCsvDialog,
     ProductsTable,
-    TakeOnStoreDialog
+    TakeOnRepoDialog
   },
   data() {
     return {
@@ -126,7 +126,7 @@ export default {
       comment: false,
       newProductInitital: undefined,
       pastCsvDialog: false,
-      takeOnStoreDialog: false
+      takeOnRepoDialog: false
     };
   },
   computed: {

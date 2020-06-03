@@ -1,4 +1,4 @@
-import Store from '../store';
+// import Store from '../store';
 import MainLayout from 'layouts/MainLayout.vue';
 import Clients from 'pages/clients/Clients.vue';
 import CreateClient from 'pages/clients/CreateClient.vue';
@@ -11,7 +11,8 @@ import Order from 'pages/orders/Order.vue';
 import Bundles from 'pages/bundles/Bundles.vue';
 import Products from 'pages/products/Products.vue';
 import Nomens from 'pages/nomenclature/Nomens.vue';
-import Stores from 'pages/stores/Stores.vue';
+import Repos from 'pages/repos/Repos.vue';
+// import Repo from 'pages/repos/Repo.vue';
 
 const routes = [
   {
@@ -27,13 +28,6 @@ const routes = [
   {
     path: '/login',
     component: () => import('layouts/LoginLayout.vue')
-    // beforeEnter: (to, from, next) => {
-    //   if (Store.state.user) {
-    //     alert(Store.state.user.name)
-    //     // Store.dispatch('logOut');
-    //   }
-    //   next();
-    // }
   },
   {
     path: '/clients',
@@ -110,13 +104,17 @@ const routes = [
     ]
   },
   {
-    path: '/stores',
+    path: '/repos',
     component: MainLayout,
     children: [
       {
         path: '',
-        component: Stores
+        component: Repos
       }
+      // {
+      //   path: ':key',
+      //   component: Repo
+      // }
     ]
   }
 ];
