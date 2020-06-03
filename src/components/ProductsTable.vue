@@ -135,7 +135,7 @@ export default {
       visibleColumns: [
         'tnved',
         'name',
-        'packType',
+        'pack',
         'measure',
         'seats',
         'qty',
@@ -164,10 +164,10 @@ export default {
           sortable: true
         },
         {
-          name: 'packType',
+          name: 'pack',
           label: 'Тип упаковки',
           align: 'center',
-          field: 'packType'
+          field: 'pack'
         },
         {
           name: 'measure',

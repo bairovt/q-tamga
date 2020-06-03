@@ -4,16 +4,16 @@
       <q-select
         outlined
         multiple
-        v-model="packType"
+        v-model="pack"
         label="Упаковка"
         :options="packTypes"
         emit-value
         dense
       >
-        <template v-if="packType.length" v-slot:append>
+        <template v-if="pack.length" v-slot:append>
           <q-icon
             name="cancel"
-            @click.stop="packType = []"
+            @click.stop="pack = []"
             class="cursor-pointer"
           />
         </template>
@@ -93,16 +93,16 @@ export default {
     }
   },
   computed: {
-    packType: {
+    pack: {
       get() {
-        if (this.product.packType === '') {
+        if (this.product.pack === '') {
           return [];
         } else {
-          return this.product.packType.split(', ');
+          return this.product.pack.split(', ');
         }
       },
       set(val) {
-        this.product.packType = val.join(', ');
+        this.product.pack = val.join(', ');
       }
     },
     packTypes() {

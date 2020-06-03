@@ -12,7 +12,7 @@ import Bundles from 'pages/bundles/Bundles.vue';
 import Products from 'pages/products/Products.vue';
 import Nomens from 'pages/nomenclature/Nomens.vue';
 import Repos from 'pages/repos/Repos.vue';
-// import Repo from 'pages/repos/Repo.vue';
+import Repo from 'pages/repos/Repo.vue';
 
 const routes = [
   {
@@ -110,11 +110,11 @@ const routes = [
       {
         path: '',
         component: Repos
+      },
+      {
+        path: ':key',
+        component: Repo
       }
-      // {
-      //   path: ':key',
-      //   component: Repo
-      // }
     ]
   }
 ];

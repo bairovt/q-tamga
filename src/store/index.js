@@ -42,12 +42,16 @@ const Store = new Vuex.Store({
     },
     nomenSearch: '',
     orderProducts: [],
-    repos: []
+    repos: [],
+    products: []
   },
 
   mutations: {
     setOrderProducts(state, payload) {
       state.orderProducts = payload;
+    },
+    setProducts(state, payload) {
+      state.products = payload;
     },
     addToOrderProducts(state, payload) {
       state.orderProducts.unshift(payload);

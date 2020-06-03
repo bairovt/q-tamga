@@ -115,7 +115,7 @@ export default {
     return {
       order: null,
       newProduct: {
-        packType: '',
+        pack: '',
         seats: 0,
         qty: 0,
         wnetto: 0,
