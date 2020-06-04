@@ -31,11 +31,20 @@ export default {
           this.$store.commit('setRepos', resp.data.repos);
         })
         .catch(console.error);
+    },
+    getBundles() {
+      this.$axios
+        .get('/api/bundles')
+        .then(resp => {
+          this.$store.commit('setBundles', resp.data.bundles);
+        })
+        .catch(console.error);
     }
   },
   created() {
     this.$store.dispatch('autoLogin');
     this.getRepos();
+    this.getBundles();
 
     this.$root.$on('open-create-nomen-dialog', this.openCreateNomenDialog);
     this.$root.$on('close-create-nomen-dialog', this.closeCreateNomenDialog);

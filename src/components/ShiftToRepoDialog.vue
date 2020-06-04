@@ -1,0 +1,71 @@
+<template>
+  <q-dialog :value="dialog" @input="$emit('close-dialog')" maximized>
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">
+          Перемещение в сборку
+        </div>
+      </q-card-section>
+
+      <q-card-section>
+        <q-form @submit="onSubmit" class="q-gutter-md">
+          <q-select
+            label="Сборка"
+            v-model="bundle"
+            :options="bundles"
+            option-label="name"
+            :rules="[val => !!val || 'не должно быть пустым']"
+          />
+
+          <div class="row">
+            <q-btn label="Переместить" color="primary" type="submit" />
+            <q-space />
+          </div>
+        </q-form>
+      </q-card-section>
+
+      <q-card-actions align="right" class="text-primary">
+        <q-space />
+        <q-btn flat label="Отмена" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script>
+export default {
+  name: 'ShiftToBundleDialog',
+  props: {
+    dialog: {
+      type: Boolean,
+      required: true
+    },
+    selected: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return { bundle: null, products: { ...this.selected } };
+  },
+  computed: {
+    bundles() {
+      return this.$store.state.bundles;
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.$axios
+        .post(`/api/shifts/shift-to-bundle`, {
+          bundle_id: this.bundle._id,
+          products
+        })
+        .then(resp => {
+          this.$emit('close-dialog');
+          this.$router.go(0);
+        })
+        .catch(console.error);
+    }
+  }
+};
+</script>

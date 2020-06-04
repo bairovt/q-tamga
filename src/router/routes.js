@@ -8,11 +8,12 @@ import Orders from 'pages/orders/Orders.vue';
 import CreateOrder from 'pages/orders/CreateOrder.vue';
 import UpdateOrder from 'pages/orders/UpdateOrder.vue';
 import Order from 'pages/orders/Order.vue';
-import Bundles from 'pages/bundles/Bundles.vue';
 import Products from 'pages/products/Products.vue';
 import Nomens from 'pages/nomenclature/Nomens.vue';
 import Repos from 'pages/repos/Repos.vue';
 import Repo from 'pages/repos/Repo.vue';
+import Bundles from 'pages/bundles/Bundles.vue';
+import Bundle from 'pages/bundles/Bundle.vue';
 
 const routes = [
   {
@@ -80,6 +81,10 @@ const routes = [
       {
         path: '',
         component: Bundles
+      },
+      {
+        path: ':key',
+        component: Bundle
       }
     ]
   },
