@@ -16,13 +16,6 @@
     </div>
 
     <RepoProductsTable></RepoProductsTable>
-
-    <!-- <ShiftToBundleDialog
-      v-if="order"
-      :dialog="takeOnRepoDialog"
-      :order="order"
-      @close-dialog="takeOnRepoDialog = false"
-    /> -->
   </q-page>
 </template>
 

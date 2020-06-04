@@ -67,7 +67,7 @@
         <q-fab-action
           @click="takeOnRepoDialog = true"
           color="secondary"
-          label="Принять на"
+          label="Принять на склад"
         />
         <!-- icon="edit" -->
         <q-fab-action
