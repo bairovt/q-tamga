@@ -5,11 +5,11 @@
     </q-breadcrumbs>
 
     <q-list>
-      <div v-for="repo in repos" :key="repo._key">
-        <q-item class="q-pa-xs" clickable :to="`/repos/${repo._key}`">
+      <div v-for="sklad in sklads" :key="sklad._key">
+        <q-item class="q-pa-xs" clickable :to="`/sklads/${sklad._key}`">
           <q-item-section>
-            <q-item-label caption lines="1">{{ repo.place }}</q-item-label>
-            <q-item-label lines="3">{{ repo.name }}</q-item-label>
+            <q-item-label caption lines="1">{{ sklad.place }}</q-item-label>
+            <q-item-label lines="3">{{ sklad.name }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-separator spaced />
@@ -20,10 +20,10 @@
 
 <script>
 export default {
-  name: 'PageRepos',
+  name: 'PageSklads',
   computed: {
-    repos() {
-      return this.$store.state.repos;
+    sklads() {
+      return this.$store.state.sklads;
     }
   }
 };

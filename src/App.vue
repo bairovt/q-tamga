@@ -24,11 +24,11 @@ export default {
     closeCreateNomenDialog() {
       this.createNomenDialog = false;
     },
-    getRepos() {
+    getSklads() {
       this.$axios
-        .get('/api/repos')
+        .get('/api/sklads')
         .then(resp => {
-          this.$store.commit('setRepos', resp.data.repos);
+          this.$store.commit('setSklads', resp.data.sklads);
         })
         .catch(console.error);
     },
@@ -43,7 +43,7 @@ export default {
   },
   created() {
     this.$store.dispatch('autoLogin');
-    this.getRepos();
+    this.getSklads();
     this.getBundles();
 
     this.$root.$on('open-create-nomen-dialog', this.openCreateNomenDialog);

@@ -15,42 +15,45 @@
       </div>
     </div>
 
-    <BundleProductsTable></BundleProductsTable>
+    <BundleProductsTable v-if="bundle" :bundle="bundle" />
   </q-page>
 </template>
 
 <script>
 import NomenCrudFields from 'components/NomenCrudFields';
 import BundleProductsTable from 'components/BundleProductsTable';
-import ShiftToRepoDialog from 'components/ShiftToRepoDialog';
+import ShiftToSkladDialog from 'components/ShiftToSkladDialog';
 
 export default {
   name: 'PageBundle',
   components: {
     NomenCrudFields,
     BundleProductsTable,
-    ShiftToRepoDialog
+    ShiftToSkladDialog
   },
   data() {
     return {
-      bundle: null,
       shiftToBundleDialog: false
     };
   },
-  computed: {},
+  computed: {
+    bundle() {
+      return this.$store.state.bundle;
+    }
+  },
   methods: {
-    getRepoProducts() {
+    getSkladProducts() {
       this.$axios
         .get(`/api/bundles/${this.$route.params.key}/products`)
         .then(resp => {
-          this.bundle = resp.data.bundle;
+          this.$store.commit('setBundle', resp.data.bundle);
           this.$store.commit('setProducts', resp.data.products);
         })
         .catch(console.error);
     }
   },
   created() {
-    this.getRepoProducts();
+    this.getSkladProducts();
   }
 };
 </script>

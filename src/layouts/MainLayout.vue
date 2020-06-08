@@ -86,14 +86,14 @@ export default {
           link: '/bundles'
         },
         {
+          title: 'Склады',
+          icon: 'store',
+          link: '/sklads'
+        },
+        {
           title: 'Номенклатура',
           icon: 'category',
           link: '/nomenclature'
-        },
-        {
-          title: 'Склады',
-          icon: 'store',
-          link: '/repos'
         }
       ]
     };

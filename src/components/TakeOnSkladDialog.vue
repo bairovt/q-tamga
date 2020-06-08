@@ -1,24 +1,24 @@
 <template>
   <q-dialog :value="dialog" @input="$emit('close-dialog')" maximized>
-    <q-card>
+    <q-card style="max-width: 900px;">
       <q-card-section>
         <div class="text-h6">
-          Перемещение в сборку
+          Принять на склад
         </div>
       </q-card-section>
 
       <q-card-section>
         <q-form @submit="onSubmit" class="q-gutter-md">
           <q-select
-            label="Сборка"
-            v-model="bundle"
-            :options="bundles"
+            label="Склад"
+            v-model="sklad"
+            :options="sklads"
             option-label="name"
             :rules="[val => !!val || 'не должно быть пустым']"
           />
 
           <div class="row">
-            <q-btn label="Переместить" color="primary" type="submit" />
+            <q-btn label="Принять" color="primary" type="submit" />
             <q-space />
           </div>
         </q-form>
@@ -34,35 +34,33 @@
 
 <script>
 export default {
-  name: 'ShiftToBundleDialog',
+  name: 'TakeOnSkladDialog',
   props: {
     dialog: {
       type: Boolean,
       required: true
     },
-    selected: {
-      type: Array,
-      required: true
-    }
+    order: { type: Object, required: true }
   },
   data() {
-    return { bundle: null, products: { ...this.selected } };
+    return { sklad: null };
   },
   computed: {
-    bundles() {
-      return this.$store.state.bundles;
+    sklads() {
+      return this.$store.state.sklads;
     }
   },
   methods: {
     onSubmit() {
       this.$axios
-        .post(`/api/shifts/shift-to-bundle`, {
-          bundle_id: this.bundle._id,
-          products
+        .post(`/api/shifts/take-on-sklad`, {
+          client_id: this.order.client_id,
+          order_id: this.order._id,
+          sklad_id: this.sklad._id
         })
         .then(resp => {
+          this.order.status = resp.data.status;
           this.$emit('close-dialog');
-          this.$router.go(0);
         })
         .catch(console.error);
     }

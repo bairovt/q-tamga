@@ -9,7 +9,12 @@
     </q-header>
     <q-page-container>
       <q-page class="flex flex-center">
-        <q-form class="q-gutter-md" style="width: 300px" @submit="logIn()" autofocus>
+        <q-form
+          class="q-gutter-md"
+          style="width: 300px"
+          @submit="logIn()"
+          autofocus
+        >
           <q-input outlined v-model="email" label="Email" />
           <q-input outlined type="password" v-model="password" label="Пароль" />
           <q-btn color="primary" type="submit">Войти</q-btn>
@@ -20,10 +25,10 @@
 </template>
 
 <script>
-import jwtDecode from "jwt-decode";
+import jwtDecode from 'jwt-decode';
 
 export default {
-  name: "LoginLayout",
+  name: 'LoginLayout',
 
   data() {
     return {
@@ -34,22 +39,22 @@ export default {
   methods: {
     logIn() {
       this.$axios
-        .post("/api/users/login", {
+        .post('/api/users/login', {
           email: this.email,
           password: this.password
         })
         .then(resp => {
           const { authToken } = resp.data;
-          window.localStorage.setItem("authToken", authToken);
-          this.$store.commit("setUser", jwtDecode(authToken));
-          this.$router.push("/");
+          window.localStorage.setItem('authToken', authToken);
+          this.$store.commit('setUser', jwtDecode(authToken));
+          this.$router.push('/');
         })
         .catch(error => {
           this.$q.notify({
-            color: "warning",
-            position: "top",
-            message: "Вход не выполнен",
-            icon: "report_problem"
+            color: 'warning',
+            position: 'top',
+            message: 'Вход не выполнен',
+            icon: 'report_problem'
           });
         });
     }

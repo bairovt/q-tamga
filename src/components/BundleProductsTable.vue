@@ -5,7 +5,7 @@
       :data="products"
       :columns="columns"
       :visible-columns="visibleColumns"
-      row-key="_key"
+      row-key="shift_key"
       separator="cell"
       :selected-rows-label="getSelectedString"
       selection="multiple"
@@ -28,7 +28,7 @@
               class="bg-blue-grey-2"
               clickable
               v-close-popup
-              @click="shiftToRepoDialog = true"
+              @click="shiftToSkladDialog = true"
             >
               <q-item-section avatar>
                 <q-icon color="info" name="store" />
@@ -42,17 +42,17 @@
       </template>
     </q-table>
 
-    <ShiftToRepoDialog
-      v-if="shiftToRepoDialog"
-      :dialog="shiftToRepoDialog"
+    <ShiftToSkladDialog
+      v-if="shiftToSkladDialog"
+      :dialog="shiftToSkladDialog"
       :selected="selected"
-      @close-dialog="shiftToRepoDialog = false"
-    ></ShiftToRepoDialog>
+      @close-dialog="shiftToSkladDialog = false"
+    ></ShiftToSkladDialog>
   </div>
 </template>
 
 <script>
-import ShiftToRepoDialog from 'components/ShiftToRepoDialog';
+import ShiftToSkladDialog from 'components/ShiftToSkladDialog';
 
 export default {
   name: 'BundleProductsTable',
@@ -63,7 +63,7 @@ export default {
     }
   },
   components: {
-    ShiftToRepoDialog
+    ShiftToSkladDialog
   },
   data() {
     return {
@@ -73,7 +73,7 @@ export default {
         page: 1,
         rowsPerPage: 0 // 0 means all rows
       },
-      shiftToRepoDialog: false,
+      shiftToSkladDialog: false,
       visibleColumns: [
         'tnved',
         'name',

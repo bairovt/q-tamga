@@ -13,7 +13,7 @@
             label="Сборка"
             v-model="bundle"
             :options="bundles"
-            option-label="name"
+            option-label="label"
             :rules="[val => !!val || 'не должно быть пустым']"
           />
 
@@ -46,9 +46,12 @@ export default {
     }
   },
   data() {
-    return { bundle: null, products: { ...this.selected } };
+    return { bundle: null, products: [...this.selected] };
   },
   computed: {
+    sklad() {
+      return this.$store.state.sklad;
+    },
     bundles() {
       return this.$store.state.bundles;
     }
@@ -56,9 +59,10 @@ export default {
   methods: {
     onSubmit() {
       this.$axios
-        .post(`/api/shifts/shift-to-bundle`, {
-          bundle_id: this.bundle._id,
-          products
+        .post(`/api/shifts/shift-to`, {
+          from_id: this.sklad._id,
+          to_id: this.bundle._id,
+          products: this.products
         })
         .then(resp => {
           this.$emit('close-dialog');

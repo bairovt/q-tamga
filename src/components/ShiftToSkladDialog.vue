@@ -1,9 +1,9 @@
 <template>
   <q-dialog :value="dialog" @input="$emit('close-dialog')" maximized>
-    <q-card style="max-width: 900px;">
+    <q-card>
       <q-card-section>
         <div class="text-h6">
-          Принять на склад
+          Перемещение на склад
         </div>
       </q-card-section>
 
@@ -11,14 +11,14 @@
         <q-form @submit="onSubmit" class="q-gutter-md">
           <q-select
             label="Склад"
-            v-model="repo"
-            :options="repos"
+            v-model="sklad"
+            :options="sklads"
             option-label="name"
             :rules="[val => !!val || 'не должно быть пустым']"
           />
 
           <div class="row">
-            <q-btn label="Принять" color="primary" type="submit" />
+            <q-btn label="Переместить" color="primary" type="submit" />
             <q-space />
           </div>
         </q-form>
@@ -34,33 +34,39 @@
 
 <script>
 export default {
-  name: 'TakeOnRepoDialog',
+  name: 'ShiftToSkladDialog',
   props: {
     dialog: {
       type: Boolean,
       required: true
     },
-    order: { type: Object, required: true }
+    selected: {
+      type: Array,
+      required: true
+    }
   },
   data() {
-    return { repo: null };
+    return { sklad: null, products: [...this.selected] };
   },
   computed: {
-    repos() {
-      return this.$store.state.repos;
+    bundle() {
+      return this.$store.state.bundle;
+    },
+    sklads() {
+      return this.$store.state.sklads;
     }
   },
   methods: {
     onSubmit() {
       this.$axios
-        .post(`/api/shifts/take-on-repo`, {
-          client_id: this.order.client_id,
-          order_id: this.order._id,
-          repo_id: this.repo._id
+        .post(`/api/shifts/shift-to`, {
+          from_id: this.bundle._id,
+          to_id: this.sklad._id,
+          products: this.products
         })
         .then(resp => {
-          this.order.status = resp.data.status;
           this.$emit('close-dialog');
+          this.$router.go(0);
         })
         .catch(console.error);
     }

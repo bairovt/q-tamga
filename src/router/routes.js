@@ -10,8 +10,8 @@ import UpdateOrder from 'pages/orders/UpdateOrder.vue';
 import Order from 'pages/orders/Order.vue';
 import Products from 'pages/products/Products.vue';
 import Nomens from 'pages/nomenclature/Nomens.vue';
-import Repos from 'pages/repos/Repos.vue';
-import Repo from 'pages/repos/Repo.vue';
+import Sklads from 'pages/sklads/Sklads.vue';
+import Sklad from 'pages/sklads/Sklad.vue';
 import Bundles from 'pages/bundles/Bundles.vue';
 import Bundle from 'pages/bundles/Bundle.vue';
 
@@ -109,16 +109,16 @@ const routes = [
     ]
   },
   {
-    path: '/repos',
+    path: '/sklads',
     component: MainLayout,
     children: [
       {
         path: '',
-        component: Repos
+        component: Sklads
       },
       {
         path: ':key',
-        component: Repo
+        component: Sklad
       }
     ]
   }

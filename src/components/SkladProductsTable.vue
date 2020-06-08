@@ -5,7 +5,7 @@
       :data="products"
       :columns="columns"
       :visible-columns="visibleColumns"
-      row-key="_key"
+      row-key="shift_key"
       separator="cell"
       :selected-rows-label="getSelectedString"
       selection="multiple"
@@ -55,7 +55,7 @@
 import ShiftToBundleDialog from 'components/ShiftToBundleDialog';
 
 export default {
-  name: 'RepoProductsTable',
+  name: 'SkladProductsTable',
   params: {
     products: {
       type: Array,

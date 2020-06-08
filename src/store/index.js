@@ -42,8 +42,10 @@ const Store = new Vuex.Store({
     },
     nomenSearch: '',
     orderProducts: [],
-    repos: [],
+    sklads: [],
+    sklad: null,
     bundles: [],
+    bundle: null,
     products: []
   },
 
@@ -97,11 +99,17 @@ const Store = new Vuex.Store({
     setNomenSearch(state, payload) {
       state.nomenSearch = payload;
     },
-    setRepos(state, payload) {
-      state.repos = payload;
+    setSklads(state, payload) {
+      state.sklads = payload;
+    },
+    setSklad(state, payload) {
+      state.sklad = payload;
     },
     setBundles(state, payload) {
       state.bundles = payload;
+    },
+    setBundle(state, payload) {
+      state.bundle = payload;
     }
   },
   actions: {
