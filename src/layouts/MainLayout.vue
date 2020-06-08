@@ -76,13 +76,13 @@ export default {
         },
         {
           title: 'Заказы',
-          icon: 'style',
+          icon: 'assignment',
           link: '/orders'
         },
         {
           title: 'Сборки',
           // caption: 'отправления',
-          icon: 'send',
+          icon: 'local_shipping',
           link: '/bundles'
         },
         {
