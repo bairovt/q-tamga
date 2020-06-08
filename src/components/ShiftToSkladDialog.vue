@@ -5,9 +5,7 @@
         <div class="text-h6">
           Перемещение на склад
         </div>
-      </q-card-section>
 
-      <q-card-section>
         <q-form @submit="onSubmit" class="q-gutter-md">
           <q-select
             label="Склад"
@@ -24,6 +22,10 @@
         </q-form>
       </q-card-section>
 
+      <q-card-section>
+        <ShiftProductsTable :products="products" />
+      </q-card-section>
+
       <q-card-actions align="right" class="text-primary">
         <q-space />
         <q-btn flat label="Отмена" v-close-popup />
@@ -33,6 +35,8 @@
 </template>
 
 <script>
+import ShiftProductsTable from 'components/ShiftProductsTable';
+
 export default {
   name: 'ShiftToSkladDialog',
   props: {
@@ -45,8 +49,14 @@ export default {
       required: true
     }
   },
+  components: { ShiftProductsTable },
   data() {
-    return { sklad: null, products: [...this.selected] };
+    return {
+      sklad: null,
+      products: this.selected.map(item => {
+        return { ...item };
+      })
+    };
   },
   computed: {
     bundle() {

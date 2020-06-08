@@ -7,60 +7,69 @@
       :visible-columns="visibleColumns"
       row-key="_key"
       separator="cell"
-      :selected-rows-label="getSelectedString"
-      selection="multiple"
-      :selected.sync="selected"
-      @row-click="rowClick"
       :pagination.sync="pagination"
     >
       <template v-slot:top>
         <div class="q-table__title">Товары</div>
         <q-space />
-
-        <q-space />
-        <q-btn-dropdown
-          :disabled="!selected.length"
-          color="info"
-          :label="`Действия (${selected.length})`"
-        >
-          <q-list>
-            <q-item
-              class="bg-blue-grey-2"
-              clickable
-              v-close-popup
-              @click="shiftToBundleDialog = true"
-            >
-              <q-item-section avatar>
-                <q-icon color="info" name="local_shipping" />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>В сборку</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
+      </template>
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td key="tnved" :props="props">
+            {{ props.row.tnved }}
+          </q-td>
+          <q-td key="name" :props="props">
+            {{ props.row.name }}
+          </q-td>
+          <q-td key="pack" :props="props">
+            {{ props.row.pack }}
+          </q-td>
+          <q-td key="measure" :props="props">
+            {{ props.row.measure }}
+          </q-td>
+          <q-td key="seats" :props="props">
+            {{ props.row.seats }}
+            <q-popup-edit v-model="props.row.seats" buttons>
+              <q-input
+                type="number"
+                v-model="props.row.seats"
+                dense
+                autofocus
+              />
+            </q-popup-edit>
+          </q-td>
+          <q-td key="qty" :props="props">
+            {{ props.row.qty }}
+            <q-popup-edit v-model="props.row.qty" buttons>
+              <q-input type="number" v-model="props.row.qty" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+          <q-td key="wnetto" :props="props">
+            {{ props.row.wnetto }}
+          </q-td>
+          <q-td key="wbrutto" :props="props">
+            {{ props.row.wbrutto }}
+          </q-td>
+          <q-td key="its" :props="props"> ${{ props.row.its }} </q-td>
+        </q-tr>
       </template>
     </q-table>
-
-    <ShiftToBundleDialog
-      v-if="shiftToBundleDialog"
-      :dialog="shiftToBundleDialog"
-      :selected="selected"
-      @close-dialog="shiftToBundleDialog = false"
-    ></ShiftToBundleDialog>
   </div>
 </template>
 
 <script>
-import ShiftToBundleDialog from 'components/ShiftToBundleDialog';
-
 export default {
-  name: 'SkladProductsTable',
-  components: {
-    ShiftToBundleDialog
+  name: 'ShiftProductsTable',
+  props: {
+    products: {
+      type: Array,
+      required: true
+    }
   },
+  components: {},
   data() {
     return {
+      // products: this.products,
       product: null,
       selected: [],
       pagination: {
@@ -77,8 +86,7 @@ export default {
         'qty',
         'wnetto',
         'wbrutto',
-        'its',
-        'priceNetto'
+        'its'
       ],
       columns: [
         { name: '_key', label: '_key', field: '_key' },
@@ -151,25 +159,6 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    products() {
-      return this.$store.state.products;
-    },
-    selectedKeys() {
-      return this.selected.map(item => item._key);
-    }
-  },
-  methods: {
-    getSelectedString() {
-      return this.selected.length === 0
-        ? ''
-        : `${this.selected.length} из ${this.products.length} выбрано`;
-    },
-    rowClick(event, row) {
-      this.product = { ...row };
-      this.productDialog = true;
-    }
   }
 };
 </script>
