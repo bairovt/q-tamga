@@ -67,6 +67,25 @@ export default {
   },
   methods: {
     onSubmit() {
+      // todo: refactor this
+      for (let i = 0; i < this.products.length; i++) {
+        if (this.products[i].qty <= 0) return alert('Error: qty <= 0');
+        if (this.products[i].qty > this.selected[i].qty)
+          return alert('Error: qty превышено');
+        if (this.products[i].seats <= 0) return alert('Error: seats <= 0');
+        if (this.products[i].seats > this.selected[i].seats)
+          return alert('Error: seats превышено');
+        if (
+          this.products[i].qty === this.selected[i].qty &&
+          this.products[i].seats !== this.selected[i].seats
+        )
+          return alert('Error: qty изменено, seats нет');
+        if (
+          this.products[i].seats === this.selected[i].seats &&
+          this.products[i].qty !== this.selected[i].qty
+        )
+          return alert('Error: seats изменено, qty нет');
+      }
       this.$axios
         .post(`/api/shifts/shift-to`, {
           from_id: this.sklad._id,
