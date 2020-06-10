@@ -36,6 +36,7 @@
 
 <script>
 import ShiftProductsTable from 'components/ShiftProductsTable';
+import { verifyQtySeats } from '../utils/verify';
 
 export default {
   name: 'ShiftToSkladDialog',
@@ -68,36 +69,25 @@ export default {
   },
   methods: {
     onSubmit() {
-      // todo: refactor this
-      for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].qty <= 0) return alert('Error: qty <= 0');
-        if (this.products[i].qty > this.selected[i].qty)
-          return alert('Error: qty превышено');
-        if (this.products[i].seats <= 0) return alert('Error: seats <= 0');
-        if (this.products[i].seats > this.selected[i].seats)
-          return alert('Error: seats превышено');
-        if (
-          this.products[i].qty === this.selected[i].qty &&
-          this.products[i].seats !== this.selected[i].seats
-        )
-          return alert('Error: qty изменено, seats нет');
-        if (
-          this.products[i].seats === this.selected[i].seats &&
-          this.products[i].qty !== this.selected[i].qty
-        )
-          return alert('Error: seats изменено, qty нет');
+      const errorMessage = verifyQtySeats(this.selected, this.products);
+      if (errorMessage) {
+        this.$q.notify({
+          type: 'warning',
+          message: errorMessage
+        });
+      } else {
+        this.$axios
+          .post(`/api/shifts/shift-to`, {
+            from_id: this.bundle._id,
+            to_id: this.sklad._id,
+            products: this.products
+          })
+          .then(resp => {
+            this.$emit('close-dialog');
+            this.$router.go(0);
+          })
+          .catch(console.error);
       }
-      this.$axios
-        .post(`/api/shifts/shift-to`, {
-          from_id: this.bundle._id,
-          to_id: this.sklad._id,
-          products: this.products
-        })
-        .then(resp => {
-          this.$emit('close-dialog');
-          this.$router.go(0);
-        })
-        .catch(console.error);
     }
   }
 };
