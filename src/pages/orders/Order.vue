@@ -32,7 +32,10 @@
     </div>
 
     <q-form ref="newProductForm" @submit="addProduct">
-      <NomenUseFields :disableFields="['tnved', 'measure']" />
+      <NomenUseFields
+        :disableFields="['tnved', 'measure']"
+        @set-its="newProduct.its = $event"
+      />
       <ProductFields :product="newProduct" :comment="comment"></ProductFields>
       <div class="row">
         <q-btn

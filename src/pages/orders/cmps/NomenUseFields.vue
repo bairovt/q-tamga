@@ -78,10 +78,12 @@ export default {
     onSelectNomen(selectedVal) {
       if (selectedVal) {
         this.$store.commit('setSharedNomen', selectedVal);
+        this.$emit('set-its', selectedVal.its ? selectedVal.its : 0);
       }
     },
     onClear(val) {
       this.$store.commit('initSharedNomen');
+      this.$emit('set-its', 0);
     },
     setNomenSearch(search) {
       if (search) this.$store.commit('setNomenSearch', search);
