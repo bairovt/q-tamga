@@ -173,6 +173,7 @@ export default {
     addProduct() {
       const createProductDto = {
         order_id: this.order._id,
+        client_id: this.order.client_id,
         nomen_id: this.nomen._id,
         ...this.newProduct
       };
