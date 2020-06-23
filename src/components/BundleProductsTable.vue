@@ -71,6 +71,7 @@ export default {
       visibleColumns: [
         'tnved',
         'name',
+        'client',
         'pack',
         'measure',
         'seats',
@@ -97,6 +98,13 @@ export default {
           align: 'left',
           field: row => row.name,
           format: val => `${val}`,
+          sortable: true
+        },
+        {
+          name: 'client',
+          label: 'Клиент',
+          align: 'center',
+          field: 'clientName',
           sortable: true
         },
         {
