@@ -9,7 +9,7 @@
     <div class="row" v-if="order">
       <div class="col-12 col-sm-8">
         <div>
-          <span text-caption>Клиент:</span>
+          <span text-caption>Клиент: </span>
           <router-link :to="`/clients/${order.client._key}`">
             {{ order.client.name }}
           </router-link>
@@ -49,7 +49,7 @@
       </div>
     </q-form>
 
-    <ProductsTable></ProductsTable>
+    <ProductsTable :order="order"></ProductsTable>
 
     <PastCsvDialog
       v-if="order"

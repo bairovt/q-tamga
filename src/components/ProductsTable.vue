@@ -117,6 +117,12 @@ import Export2CsvDialog from 'components/Export2CsvDialog';
 
 export default {
   name: 'ProductsTable',
+  props: {
+    order: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     NomenCrudFields,
     ProductFields,
@@ -267,7 +273,8 @@ export default {
         this.$axios
           .delete('/api/products', {
             data: {
-              productKeys: this.selectedKeys
+              productKeys: this.selectedKeys,
+              order_id: this.order._id
             }
           })
           .then(resp => {
