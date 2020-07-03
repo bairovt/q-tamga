@@ -3,7 +3,7 @@
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказы" to="/orders" />
       <q-breadcrumbs-el :label="$route.params.key" />
-      <span v-if="order">{{ order.status }}</span>
+      <span v-if="order">{{ order.status | orderStatus }}</span>
     </q-breadcrumbs>
 
     <div class="row" v-if="order">
@@ -103,6 +103,7 @@ import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import ProductsTable from 'components/ProductsTable';
 import TakeOnSkladDialog from 'components/TakeOnSkladDialog';
+import { orderStatus } from '../../filters';
 
 export default {
   name: 'PageOrder',
