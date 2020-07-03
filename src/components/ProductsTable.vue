@@ -141,6 +141,7 @@ export default {
       visibleColumns: [
         'tnved',
         'name',
+        'taken',
         'pack',
         'measure',
         'seats',
@@ -167,6 +168,15 @@ export default {
           align: 'left',
           field: row => row.name,
           format: val => `${val}`,
+          sortable: true
+        },
+        {
+          name: 'taken',
+          required: true,
+          label: 'Пр',
+          align: 'center',
+          field: 'taken',
+          format: val => `${val ? 'да' : 'нет'}`,
           sortable: true
         },
         {

@@ -49,7 +49,7 @@
       </div>
     </q-form>
 
-    <ProductsTable :order="order"></ProductsTable>
+    <ProductsTable v-if="order" :order="order"></ProductsTable>
 
     <PastCsvDialog
       v-if="order"
