@@ -4,7 +4,7 @@
       <q-item :to="`/orders/${order._key}`" class="q-pa-xs">
         <q-item-section>
           <q-item-label caption lines="1"
-            >{{ order.createdAt | ruDate }} №{{ order.number }}</q-item-label
+            >{{ order.createdAt | ruDate }} №{{ order._key }}</q-item-label
           >
           <q-item-label v-if="withClient">{{ order.client.name }}</q-item-label>
           <q-item-label caption lines="2">{{ order.info }}</q-item-label>

@@ -3,7 +3,13 @@
     <q-breadcrumbs>
       <q-breadcrumbs-el label="Заказы" to="/orders" />
       <q-breadcrumbs-el :label="$route.params.key" />
-      <span v-if="order">{{ order.status | orderStatus }}</span>
+      <span v-if="order"> {{ order.status | orderStatus }}</span>
+      <span v-if="order && order.status === 'TAKEN'">
+        {{ takenCnt }}/{{ products.length }}
+        <router-link :to="`/sklads/${order.takenOnStore._key}`">
+          {{ order.takenOnStore.name }}
+        </router-link>
+      </span>
     </q-breadcrumbs>
 
     <div class="row" v-if="order">
@@ -103,7 +109,6 @@ import ProductFields from 'components/ProductFields';
 import PastCsvDialog from './cmps/PastCsvDialog';
 import ProductsTable from 'components/ProductsTable';
 import TakeOnSkladDialog from 'components/TakeOnSkladDialog';
-import { orderStatus } from '../../filters';
 
 export default {
   name: 'PageOrder',
@@ -136,6 +141,10 @@ export default {
   computed: {
     products() {
       return this.$store.state.orderProducts;
+    },
+    takenCnt() {
+      const taken = this.products.filter(product => product.taken);
+      return taken.length;
     },
     nomen() {
       return this.$store.state.sharedNomen;

@@ -2,7 +2,8 @@ export default ({ Vue }) => {
   Vue.filter('orderStatus', function(val) {
     const statuses = {
       NEW: 'НОВЫЙ',
-      TAKEN: 'ПРИНЯТ'
+      TAKEN: 'ПРИНЯТ',
+      DONE: 'ЗАВЕРШЕН'
     };
     return statuses[val];
   });
