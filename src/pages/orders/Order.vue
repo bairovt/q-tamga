@@ -5,9 +5,9 @@
       <q-breadcrumbs-el :label="$route.params.key" />
       <span v-if="order"> {{ order.status | orderStatus }}</span>
       <span v-if="order && order.status === 'TAKEN'">
-        {{ takenCnt }}/{{ products.length }}
-        <router-link :to="`/sklads/${order.takenOnStore._key}`">
-          {{ order.takenOnStore.name }}
+        {{ takenCnt }}/{{ products.length }} &nbsp;
+        <router-link :to="`/sklads/${order.takenOnSklad._key}`">
+          {{ order.takenOnSklad.name }}
         </router-link>
       </span>
     </q-breadcrumbs>

@@ -60,7 +60,7 @@ export default {
         })
         .then(resp => {
           this.order.status = resp.data.status;
-          this.$emit('close-dialog');
+          this.$router.go(0);
         })
         .catch(console.error);
     }
